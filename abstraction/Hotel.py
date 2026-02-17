@@ -1,8 +1,11 @@
+import uuid
+
 class Hotel:
 
 
     def __init__(self, name=""):
         self.name = name
+        self._id = str(uuid.uuid4())
 
     def __str__(self):
         return (f"Hotel Details:\n"
@@ -32,6 +35,16 @@ class Hotel:
     def cancel_reservation(self):
             print("Reservation Cancelled!")
             print(self)
+
+    @property
+    def id(self):
+        return f"{self._id}"
+
+    @id.setter
+    def id(self, value):
+        if not value:
+            raise ValueError("Id cannot be empty")
+        self._id = value
 
     @property
     def name(self):

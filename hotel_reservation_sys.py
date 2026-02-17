@@ -3,16 +3,23 @@ from pathlib import Path
 from abstraction.Customer import Customer
 # from abstraction.Hotel import Hotel
 # from abstraction.Reservation import Reservation
+from abstraction.AbstractionType import AbstractionType
+from abstraction.Hotel import Hotel
+from abstraction.Setting import Setting
 from data_handling.JsonManager import JsonManager
 
 def start(name):
-    id = "f37d8661-0345-430a-b9b5-ddb758b83342"
-    c = Customer("Pepe Goteras y Black")
-    print(c.id)
-    c.id = id
-    print(c.id)
-    is_saved = JsonManager.create_data(c, "\\data_set\\customer\\")
+    # print(JsonManager.get_path(AbstractionType.RESERVATION))
+    # id = "f37d8661-0345-430a-b9b5-ddb758b83342"
+    # c = Customer("Pepe Goteras y Black")
+    h = Hotel("El Gran Peleé")
 
+    is_saved = JsonManager.create_data(AbstractionType.HOTEL, h)
+
+    # print(c.id)
+    # c.id = id
+    # print(c.id)
+    # is_saved = JsonManager.create_data(c, "\\data_set\\customer\\")
     # is_saved = JsonManager.create_data(c, "\\data_set\\customer\\")
     #JsonManager.display_data("\\data_set\\customer\\")
 

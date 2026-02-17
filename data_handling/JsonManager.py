@@ -2,27 +2,77 @@ from pathlib import Path
 import json
 import os
 
-# from colorama import init, Fore
-# init(autoreset=True)
+from abstraction.AbstractionType import AbstractionType
+from abstraction.Setting import Setting
 
 class JsonManager:
 
     @staticmethod
-    def create_data(data, catalog_path):
-        data_path = Path(__file__)
-        full_path = str(data_path.parent.parent) + catalog_path + data.id + ".json"
+    def yield_json(data_type,data):
+
+        src_data = {}
+
+        if data_type == AbstractionType.CUSTOMER:
+            src_data = {
+                "id": data.id,
+                "name": data.name,
+                "lastname": data.name,
+                "age": 30,
+            }
+        elif data_type == AbstractionType.HOTEL:
+            src_data = {
+                "id": data.id,
+                "name": data.name,
+            }
+        elif data_type == AbstractionType.RESERVATION:
+            pass
+        else:
+            pass
+
+        return src_data
+
+    @staticmethod
+    def get_path(data_type):
+        catalog_path = ""
+
+        if data_type == AbstractionType.CUSTOMER:
+            catalog_path =  Setting.SEP_PATH + Setting.DATA_PATH + Setting.SEP_PATH + Setting.CUSTOMER_PATH + Setting.SEP_PATH
+        elif data_type == AbstractionType.HOTEL:
+            catalog_path = Setting.SEP_PATH + Setting.DATA_PATH + Setting.SEP_PATH + Setting.HOTEL_PATH + Setting.SEP_PATH
+        elif data_type == AbstractionType.RESERVATION:
+            catalog_path = Setting.SEP_PATH + Setting.DATA_PATH + Setting.SEP_PATH + Setting.RESERVATION_PATH + Setting.SEP_PATH
+        else:
+            pass
+
+        parent_path = Path(__file__)
+        full_path = str(parent_path.parent.parent) + catalog_path
+
+        if catalog_path!="":
+            return full_path
+        else:
+            return catalog_path
+
+    @staticmethod
+    def create_data(data_type, data):
+        full_path = JsonManager.get_path(data_type) + data.id + ".json"
         print(full_path)
-        data = {
-            "id": data.id,
-            "name": data.name,
-            "lastname": data.name,
-            "age": 30,
-        }
+
+        # data = {
+        #     "id": data.id,
+        #     "name": data.name,
+        #     "lastname": data.name,
+        #     "age": 30,
+        # }
+
+        src_data = JsonManager.yield_json(data_type, data)
+
+        print("*" * 23)
+        print(src_data)
+        print("*" * 23)
 
         try:
-
             with open(full_path, "w") as json_file:
-                json.dump(data, json_file, indent=4)
+                json.dump(src_data, json_file, indent=4)
             return True
         except FileNotFoundError as FileNFE:
             print(FileNFE)
