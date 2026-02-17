@@ -3,6 +3,7 @@ import json
 import os
 
 from abstraction.AbstractionType import AbstractionType
+from abstraction.Customer import Customer
 from abstraction.Setting import Setting
 
 class JsonManager:
@@ -54,21 +55,9 @@ class JsonManager:
 
     @staticmethod
     def create_data(data_type, data):
-        full_path = JsonManager.get_path(data_type) + data.id + ".json"
+        full_path = JsonManager.get_path(data_type) + data.id + Setting.FILE_EXTENSION
         print(full_path)
-
-        # data = {
-        #     "id": data.id,
-        #     "name": data.name,
-        #     "lastname": data.name,
-        #     "age": 30,
-        # }
-
         src_data = JsonManager.yield_json(data_type, data)
-
-        print("*" * 23)
-        print(src_data)
-        print("*" * 23)
 
         try:
             with open(full_path, "w") as json_file:
@@ -120,16 +109,41 @@ class JsonManager:
             return data
 
     @staticmethod
-    def display_data(catalog_path):
-        data_path = Path(__file__)
-        full_path = Path(str(data_path.parent.parent) + catalog_path)
-        json_files = list(full_path.glob('**/*.json'))
+    def display_data(data_type):
+        obj_container = []
+        obj_line = None
+        full_path = Path(JsonManager.get_path(data_type))
+        print(full_path)
+
+
+        json_files = list(full_path.glob('**/*' +  Setting.FILE_EXTENSION))
+
         for each_file in json_files:
-            customer_src = JsonManager.load_from_file(each_file)
-            name = str(customer_src['name'])
-            id = str(customer_src['id'])
-            age = str(customer_src['age'])
-            print(f"Name:={name} Id:={id} Age:={age}")
+            obj_line = None
+
+            if data_type == AbstractionType.CUSTOMER:
+                data_src = JsonManager.load_from_file(each_file)
+
+                if isinstance(data_src, dict):
+                    name = str(data_src['name'])
+                    id = str(data_src['id'])
+                    age = str(data_src['age'])
+                    obj_line = Customer(name)
+                    obj_line.id = id
+                    obj_line.age = age
+                    obj_container.append(obj_line)
+                    #print(f"Name:={name} Id:={id} Age:={age}")
+                else:
+                    pass
+            elif data_type == AbstractionType.HOTEL:
+                pass
+            elif data_type == AbstractionType.RESERVATION:
+                pass
+            else:
+                pass
+
+        #print(obj_container)
+
 
 
 
