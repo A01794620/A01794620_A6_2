@@ -1,12 +1,14 @@
 from pathlib import Path
 import json
+import os
+
 # from colorama import init, Fore
 # init(autoreset=True)
 
 class JsonManager:
 
     @staticmethod
-    def save_data(data, catalog_path):
+    def create_data(data, catalog_path):
         data_path = Path(__file__)
         full_path = str(data_path.parent.parent) + catalog_path + data.id + ".json"
         print(full_path)
@@ -28,3 +30,57 @@ class JsonManager:
         except json.JSONDecodeError as JSONDE:
             print(JSONDE)
             return False
+
+    @staticmethod
+    def delete_data(catalog_path, file_id):
+        data_path = Path(__file__)
+        full_path = str(data_path.parent.parent) + catalog_path + file_id + ".json"
+        print(full_path)
+
+        try:
+            if os.path.exists(full_path):
+                print("Removing " + full_path + " with no mercy.")
+                os.remove(full_path)
+            else:
+                print("The file " + full_path + " does not exist.")
+        except FileNotFoundError:
+            print(f"Error: The file '{full_path}' does not exist.")
+        except PermissionError:
+            print(f"Error: Permission denied to delete the file '{full_path}'. Ensure the file is not open or read-only.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+
+    @staticmethod
+    def load_from_file(file_path):
+        data = ""
+        err_to_print = ""
+
+        try:
+            with open(file_path, 'r', encoding="utf-8") as file:
+                data = json.load(file)
+
+            return data
+
+        except FileNotFoundError:
+            err_to_print = f"File was not found:= {file_path}."
+            return data
+        except json.JSONDecodeError:
+            err_to_print = ("Error: Could not decode JSON from the file. " +
+                            "Check for valid JSON syntax.")
+            return data
+
+    @staticmethod
+    def display_data(catalog_path):
+        data_path = Path(__file__)
+        full_path = Path(str(data_path.parent.parent) + catalog_path)
+        json_files = list(full_path.glob('**/*.json'))
+        for each_file in json_files:
+            customer_src = JsonManager.load_from_file(each_file)
+            name = str(customer_src['name'])
+            id = str(customer_src['id'])
+            age = str(customer_src['age'])
+            print(f"Name:={name} Id:={id} Age:={age}")
+
+
+
+

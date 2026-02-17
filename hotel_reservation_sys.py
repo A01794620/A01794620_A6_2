@@ -6,16 +6,24 @@ from abstraction.Customer import Customer
 from data_handling.JsonManager import JsonManager
 
 def start(name):
-    c = Customer(name)
+    id = "f37d8661-0345-430a-b9b5-ddb758b83342"
+    c = Customer("Pepe Goteras y Black")
+    print(c.id)
+    c.id = id
+    print(c.id)
+    is_saved = JsonManager.create_data(c, "\\data_set\\customer\\")
+
+    # is_saved = JsonManager.create_data(c, "\\data_set\\customer\\")
+    #JsonManager.display_data("\\data_set\\customer\\")
+
     # print(Path(__file__))
 
-
-
-
     # file_folder = Path(__file__).parent.parent.resolve()
-
     #file_folder = Path(__file__).parent.parent.resolve()
-    is_saved = JsonManager.save_data(c, "\\data_set\\customer\\")
+    # c = Customer(name)
+    #is_saved = JsonManager.create_data(c, "\\data_set\\customer\\")
+    # is_saved = JsonManager.delete_data("\\data_set\\customer\\", '63f2387b-061b-4f9e-92b2-fa7e55aa012e')
+
     from pathlib import Path
 
     #if is_saved:
@@ -29,4 +37,10 @@ def start(name):
     # print(name)
 
 if __name__ == '__main__':
-    start('Roberto Brenes Mesen')
+    start("")
+    # start('Roberto Brenes Mesen')
+    # start('Pedro Bull Narito')
+    # start("Maria Torres Alberatoe")
+    # start("Luis Manual de la Torre")
+    # start("Hernan Derbez Pure")
+    # start("Eloisa Asofeifa Nuñez")

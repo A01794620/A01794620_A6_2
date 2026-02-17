@@ -33,6 +33,12 @@ class Customer:
     def id(self):
         return f"{self._id}"
 
+    @id.setter
+    def id(self, value):
+        if not value:
+            raise ValueError("Id cannot be empty")
+        self._id = value
+
     @property
     def name(self):
         return f"{self._name}"
