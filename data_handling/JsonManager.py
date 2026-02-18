@@ -16,10 +16,11 @@ class JsonManager:
         if data_type == AbstractionType.CUSTOMER:
             src_data = {
                 "id": data.id,
-                "fullname": data.name,
+                "fullname": data.fullname,
                 "email": data.email,
-                "phone": data.phone,
+                "phone": data.phone
             }
+
         elif data_type == AbstractionType.HOTEL:
             src_data = {
                 "id": data.id,
@@ -56,8 +57,13 @@ class JsonManager:
     @staticmethod
     def create_data(data_type, data):
         full_path = JsonManager.get_path(data_type) + data.id + Setting.FILE_EXTENSION
-        # print(full_path)
         src_data = JsonManager.yield_json(data_type, data)
+
+        # print("*" * 10)
+        # print(src_data)
+        # print(full_path)
+        # print("*" * 10)
+        # return
 
         try:
             with open(full_path, "w") as json_file:
@@ -71,9 +77,10 @@ class JsonManager:
             return False
 
     @staticmethod
-    def delete_data(catalog_path, file_id):
-        data_path = Path(__file__)
-        full_path = str(data_path.parent.parent) + catalog_path + file_id + ".json"
+    def delete_data(data_type, file_id):
+        full_path = JsonManager.get_path(data_type) + file_id + Setting.FILE_EXTENSION
+        # data_path = Path(__file__)
+        # full_path = str(data_path.parent.parent) + catalog_path + file_id + ".json"
         print(full_path)
 
         try:
@@ -171,3 +178,25 @@ class JsonManager:
             pass
 
         return obj_item
+
+    @staticmethod
+    def has_data(data_type, file_id):
+        full_path = JsonManager.get_path(data_type) + file_id + Setting.FILE_EXTENSION
+        print(full_path)
+
+        try:
+            if os.path.exists(full_path):
+                return True
+            else:
+                return False
+        except FileNotFoundError:
+            print(f"Error: The file '{full_path}' does not exist.")
+            return False
+        except PermissionError:
+            print(
+                f"Error: Permission denied to delete the file '{full_path}'. Ensure the file is not open or read-only.")
+            return False
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+            return False
+

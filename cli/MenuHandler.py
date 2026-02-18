@@ -26,7 +26,7 @@ class MenuHandler:
         if item_root == AbstractionType.CUSTOMER.value:
             # print("ON Customer")
             if item_branch == MenuCustomer.CREATE.value:
-                CustomerHandler.create_new_customer()
+                CustomerHandler.register_customer(True, None)
                 # CustomerHandler.create_new_customer()
                 # CustomerHandler.create_new_customer()
                 # print("ON Create Customer")
@@ -34,7 +34,6 @@ class MenuHandler:
                 print("Some other place but in Customer Area still :-_-")
                 # CustomerHandler.list_customers()
                 MenuHandler.menu_dynamic_handler()
-
             else:
                 pass
         else:
@@ -163,8 +162,10 @@ class MenuHandler:
             pu.clear()
             # print(type(handler))
             c = JsonManager.retrieve_data(AbstractionType.CUSTOMER, id_)
+
             _name = prompt("Name :=", default=c.name)
             _age = prompt("Age  :=", default=c.name)
+
             print(f"{_name} {_age}")
             print(c)
             print(id_)
@@ -193,7 +194,7 @@ class MenuHandler:
         pu = PromptUtils(Screen())
         pu.clear()
 
-        menu = ConsoleMenu(f"Customer List", "Aurora Reservation System")
+        menu = ConsoleMenu(f"Customer List", "Aurora Reservation System\nSelect one ordinal number from the customer list.")
 
         def add_item(id_):
 
@@ -206,9 +207,14 @@ class MenuHandler:
 
                     if each_i.args[0] == id_:
 
-                        c = JsonManager.retrieve_data(AbstractionType.CUSTOMER, each_i.args[0])
-                        print(c.fullname)
-                        print("OK")
+                        customer = JsonManager.retrieve_data(AbstractionType.CUSTOMER, each_i.args[0])
+                        CustomerHandler.handle_customer(customer)
+
+                        if JsonManager.has_data(AbstractionType.CUSTOMER, each_i.args[0]):
+                            customer_retrieved = JsonManager.retrieve_data(AbstractionType.CUSTOMER, id_)
+                            each_i.text = customer_retrieved.fullname
+                        else:
+                            each_i.text += "<Deleted>"
                     else:
                         print("")
 
@@ -219,7 +225,7 @@ class MenuHandler:
                 else:
                     pass
 
-            pu.enter_to_continue()
+            # pu.enter_to_continue()
 
 
         obj_container = JsonManager.display_data(AbstractionType.CUSTOMER)

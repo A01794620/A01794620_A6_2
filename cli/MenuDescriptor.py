@@ -6,9 +6,7 @@ class MenuDescriptor:
 
     customer_menu = [
                     'Create Customer',
-                    'Delete a Customer',
-                    'Display Customer Information',
-                    'Modify Customer Information'
+                    'Display Customer Information'
     ]
 
     hotel_menu = [
