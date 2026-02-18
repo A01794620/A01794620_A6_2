@@ -1,6 +1,8 @@
 from consolemenu import *
 from consolemenu.items import *
 from abstraction.Customer import Customer
+from cli.MenuCustomer import MenuCustomer
+from cli.MenuDescriptor import MenuDescriptor
 from data_handling.JsonManager import JsonManager
 from abstraction.AbstractionType import AbstractionType
 from prompt_toolkit import prompt
@@ -13,33 +15,72 @@ class MenuHandler:
 
     def __init__(self):
         pass
+    @staticmethod
+    def item_handler(args_):
+        pu = PromptUtils(Screen())
+        pu.clear()
+        values = args_.split("-")
+        item_root = int(values[0])
+        item_branch = int(values[1])
+
+        if item_root == AbstractionType.CUSTOMER.value:
+            print("ON Customer")
+
+            if item_branch == MenuCustomer.CREATE.value:
+                print("ON Create Customer")
+            else:
+                print("Some other place but in Customer Area still :-_-")
+        else:
+            print("in other place")
+
+        pu.enter_to_continue()
+
+    @staticmethod
+    def show_system_menu(title, sub_title):
+
+        main_menu = ConsoleMenu(title, sub_title)
+
+        for index, sub_branch in enumerate(MenuDescriptor.root_menu):
+            # for sub_branch in MenuDescriptor.root_menu:
+            submenu_item = ConsoleMenu(f"{sub_branch} Management", sub_branch)
+            submenu_item_root = SubmenuItem(f"{sub_branch} Options ...", submenu=submenu_item)
+            ###
+
+            # print(index)
+
+            if index == AbstractionType.CUSTOMER.value:
+
+                for index_item, customer_branch in enumerate(MenuDescriptor.customer_menu):
+                    print(customer_branch)
+                    args = [str(index) + "-" +  str(index_item)]
+                    function_item = FunctionItem(customer_branch, MenuHandler.item_handler, args)
+                    submenu_item.append_item(function_item)
+
+            ###
+            submenu_item_root.set_menu(main_menu)
+            main_menu.append_item(submenu_item_root)
+
+        main_menu.show()
 
     @staticmethod
     def get_menu(title, subtitle):
-
         main_menu = ConsoleMenu(title, subtitle)
-
         # hotel_item = MenuItem("::: Reservation Management System :::")
-
         function_item = FunctionItem("Create new customer", MenuHandler.test_fx)
-
         # hotel_selection_sub_menu = SelectionMenu(
         #     [function_item, "Create new customer",
         #      "Delete existing customer",
         #      "Display Customer Information",
         #      "Modify existing customer"
         # ])
-
         #function_item = FunctionItem("Call a Python function", input, ["Enter an input"])
         #command_item = CommandItem("Run a console command", "touch hello.txt")
-
         # submenu_item = SubmenuItem("Customers Management", hotel_selection_sub_menu , main_menu)
         submenu_item = ConsoleMenu("Customer", "Customer Menu")
         # sub_menu_item.add_item(function_item)
         submenu_item.append_item(function_item)
         submenu_item_2 = SubmenuItem("Customers Management", submenu=submenu_item)
         submenu_item_2.set_menu(main_menu)
-
         # menu.append_item(menu_item)
         # menu.append_item(function_item)
         # menu.append_item(command_item)
