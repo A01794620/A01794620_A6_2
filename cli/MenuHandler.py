@@ -1,3 +1,4 @@
+import sys
 from asyncio import print_call_graph
 from operator import index
 
@@ -6,6 +7,12 @@ from consolemenu.items import *
 from abstraction.Customer import Customer
 from data_handling.JsonManager import JsonManager
 from abstraction.AbstractionType import AbstractionType
+from prompt_toolkit import prompt
+import sys
+
+from consolemenu import ConsoleMenu
+from consolemenu.items import FunctionItem
+
 
 # from data_handling.JsonManager import JsonManager
 
@@ -77,26 +84,63 @@ class MenuHandler:
         print(c.id)
         print(c.name)
         JsonManager.create_data(AbstractionType.CUSTOMER, c)
-
         pu.enter_to_continue()
 
     @staticmethod
     def list_files():
-        print("OK")
-
+        # print("OK")
         obj_container = JsonManager.display_data(AbstractionType.CUSTOMER)
-        submenu_item = ConsoleMenu("Customer", "Customer Menu")
+        #submenu_item = ConsoleMenu("Customer", "Customer Menu")
+        items = []
 
         for obj in obj_container:
-            function_item = FunctionItem(f"Customer {obj.name}", MenuHandler.file_selection, [obj.id])
-            submenu_item.append_item(function_item)
-            # print(obj)
+            c = Customer(obj.name)
+            c.id = obj.id
+            c.name = obj.name
 
-        submenu_item.show()
+            items.append(obj)
+
+        #    function_item = FunctionItem(f"{obj.name}", MenuHandler.file_selection, [obj.id])
+        #    items.append(function_item)
+        # submenu_item.append_item(function_item)
+        # print(obj)
+
+        # return submenu_item
+        # submenu_item.show()
         # def display_data(data_type):
+        return items
+
 
     @staticmethod
-    def file_selection(id):
-        print(id)
-        pu = PromptUtils(Screen())
-        pu.enter_to_continue()
+    def file_selection(id_):
+
+        try:
+            pu = PromptUtils(Screen())
+            pu.clear()
+            # print(type(handler))
+            c = JsonManager.retrieve_data(AbstractionType.CUSTOMER, id_)
+            _name = prompt("Name :=", default=c.name)
+            _age = prompt("Age  :=", default=c.name)
+            print(f"{_name} {_age}")
+            print(c)
+            print(id_)
+            c.name = _name
+            c.age = 90
+            JsonManager.create_data(AbstractionType.CUSTOMER, c)
+            # print(handler)
+            #print(type(handler))
+            pu.enter_to_continue()
+            #handler.show()
+
+            #ConsoleMenu(handler).
+
+            # sys.exit()
+            # pu.enter_to_continue()
+            # handler.items.clear()
+            #handler.clear_screen()
+            # handler.exit()
+        except AttributeError as e:
+            print(f"Another error occurred: {e}")
+        except TypeError as e:
+            print(f"Another error occurred: {e}")
+

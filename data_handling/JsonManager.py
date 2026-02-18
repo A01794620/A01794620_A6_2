@@ -113,8 +113,7 @@ class JsonManager:
         obj_container = []
         obj_line = None
         full_path = Path(JsonManager.get_path(data_type))
-        print(full_path)
-
+        # print(full_path)
 
         json_files = list(full_path.glob('**/*' +  Setting.FILE_EXTENSION))
 
@@ -144,7 +143,28 @@ class JsonManager:
 
         return obj_container
 
+    @staticmethod
+    def retrieve_data(data_type, id_):
+        full_path = JsonManager.get_path(data_type) + id_ + Setting.FILE_EXTENSION
+        data_src = JsonManager.load_from_file(full_path)
 
+        name = ""
+        id = ""
+        age = 0
+        obj_item = None
 
+        if isinstance(data_src, dict):
+            name = str(data_src['name'])
+            id = str(data_src['id'])
+            age = str(data_src['age'])
+            obj_item = Customer(name)
+            obj_item.id = id
+            obj_item.age = age
 
+        else:
+            pass
+
+        # print(data_src)
+        # print(full_path)
+        return obj_item
 

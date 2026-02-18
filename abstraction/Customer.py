@@ -11,7 +11,8 @@ class Customer:
     def __str__(self):
         return (f"Customer Details:\n"
                 f"Name := {self.name}\n"
-                )
+                f"Id := {self._id}\n"
+               )
 
     def create(self, is_screen_out=True):
         print("Customer created!")
