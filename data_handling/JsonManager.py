@@ -142,7 +142,7 @@ class JsonManager:
             else:
                 pass
 
-        #print(obj_container)
+        return obj_container
 
 
 

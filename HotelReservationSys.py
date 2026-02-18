@@ -3,8 +3,11 @@ import cli.MenuHandler
 from cli.MenuHandler import MenuHandler
 
 def start(name):
+
     print("Hotel created!")
-    MenuHandler.get_menu("Reservation Management System", "For support contact\nA01794620@tec.mx\n(MNA)")
+    # MenuHandler.get_menu("Reservation Management System", "For support contact\nA01794620@tec.mx\n(MNA)")
+    MenuHandler.list_files()
+
 
 if __name__ == '__main__':
     start("")

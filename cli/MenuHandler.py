@@ -1,3 +1,4 @@
+from asyncio import print_call_graph
 from operator import index
 
 from consolemenu import *
@@ -5,6 +6,8 @@ from consolemenu.items import *
 from abstraction.Customer import Customer
 from data_handling.JsonManager import JsonManager
 from abstraction.AbstractionType import AbstractionType
+
+# from data_handling.JsonManager import JsonManager
 
 class MenuHandler:
 
@@ -75,4 +78,25 @@ class MenuHandler:
         print(c.name)
         JsonManager.create_data(AbstractionType.CUSTOMER, c)
 
+        pu.enter_to_continue()
+
+    @staticmethod
+    def list_files():
+        print("OK")
+
+        obj_container = JsonManager.display_data(AbstractionType.CUSTOMER)
+        submenu_item = ConsoleMenu("Customer", "Customer Menu")
+
+        for obj in obj_container:
+            function_item = FunctionItem(f"Customer {obj.name}", MenuHandler.file_selection, [obj.id])
+            submenu_item.append_item(function_item)
+            # print(obj)
+
+        submenu_item.show()
+        # def display_data(data_type):
+
+    @staticmethod
+    def file_selection(id):
+        print(id)
+        pu = PromptUtils(Screen())
         pu.enter_to_continue()
