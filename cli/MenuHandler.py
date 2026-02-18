@@ -194,7 +194,8 @@ class MenuHandler:
         pu = PromptUtils(Screen())
         pu.clear()
 
-        menu = ConsoleMenu(f"Customer List", "Aurora Reservation System\nSelect one ordinal number from the customer list.")
+        menu = ConsoleMenu(f"Customer List",
+                           "Aurora Reservation System\nSelect one ordinal number from the customer list.")
 
         def add_item(id_):
 
@@ -202,8 +203,10 @@ class MenuHandler:
                 each_i = cast(FunctionItem, each)
 
                 if isinstance(each_i, FunctionItem):
-                    # print("OK")
-                    # print(each_i.text)
+
+                    if "<Deleted>" in each_i.text:
+                        # print("This Customer has been already removed.")
+                        return
 
                     if each_i.args[0] == id_:
 
@@ -214,13 +217,11 @@ class MenuHandler:
                             customer_retrieved = JsonManager.retrieve_data(AbstractionType.CUSTOMER, id_)
                             each_i.text = customer_retrieved.fullname
                         else:
-                            each_i.text += "<Deleted>"
+                            each_i.text += " <Deleted>"
                     else:
                         print("")
 
                     # each_i.text = c.name + '^'
-                    # else:
-                    # pass
 
                 else:
                     pass

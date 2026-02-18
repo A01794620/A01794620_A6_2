@@ -23,7 +23,6 @@ class CustomerHandler:
 
         if user_input == "Y":
             JsonManager.delete_data(AbstractionType.CUSTOMER, on_record_customer.id)
-
             print(f"Customer deleted successfully.")
         else:
             print(f"Removal cancelled.")
