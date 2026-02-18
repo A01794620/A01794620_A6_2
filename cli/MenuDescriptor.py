@@ -24,3 +24,5 @@ class MenuDescriptor:
         'Create a Reservation(Customer, Hotel)',
         'Cancel a Reservation'
     ]
+
+    customer_fields = [ 'Full Name', 'E-mail', 'Phone']

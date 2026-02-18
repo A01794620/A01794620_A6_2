@@ -16,9 +16,9 @@ class JsonManager:
         if data_type == AbstractionType.CUSTOMER:
             src_data = {
                 "id": data.id,
-                "name": data.name,
-                "lastname": data.name,
-                "age": 30,
+                "fullname": data.name,
+                "email": data.email,
+                "phone": data.phone,
             }
         elif data_type == AbstractionType.HOTEL:
             src_data = {
@@ -56,7 +56,7 @@ class JsonManager:
     @staticmethod
     def create_data(data_type, data):
         full_path = JsonManager.get_path(data_type) + data.id + Setting.FILE_EXTENSION
-        print(full_path)
+        # print(full_path)
         src_data = JsonManager.yield_json(data_type, data)
 
         try:

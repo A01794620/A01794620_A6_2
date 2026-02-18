@@ -6,3 +6,5 @@ class Setting:
     HOTEL_PATH = "hotel"
     RESERVATION_PATH = "reservation"
     SEP_PATH = "\\"
+    HEAD_SYMBOL = "—"
+    COL_WIDTH = 60
