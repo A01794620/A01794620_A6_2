@@ -1,20 +1,13 @@
-import sys
-from asyncio import print_call_graph
-from operator import index
-
 from consolemenu import *
 from consolemenu.items import *
 from abstraction.Customer import Customer
 from data_handling.JsonManager import JsonManager
 from abstraction.AbstractionType import AbstractionType
 from prompt_toolkit import prompt
-import sys
+from typing import cast
 
 from consolemenu import ConsoleMenu
 from consolemenu.items import FunctionItem
-
-
-# from data_handling.JsonManager import JsonManager
 
 class MenuHandler:
 
@@ -97,7 +90,6 @@ class MenuHandler:
             c = Customer(obj.name)
             c.id = obj.id
             c.name = obj.name
-
             items.append(obj)
 
         #    function_item = FunctionItem(f"{obj.name}", MenuHandler.file_selection, [obj.id])
@@ -144,3 +136,27 @@ class MenuHandler:
         except TypeError as e:
             print(f"Another error occurred: {e}")
 
+    @staticmethod
+    def menu_dynamic_handler():
+        menu = ConsoleMenu(f"Dynamic Menu", "Initial Subtitle")
+
+        def add_item(id_):
+            for each in menu.items:
+                each_i = cast(FunctionItem, each)
+
+                if isinstance(each_i, FunctionItem):
+                    if each_i.args[0] == id_:
+                        c = JsonManager.retrieve_data(AbstractionType.CUSTOMER, each_i.args[0])
+                        each_i.text = c.name + '^'
+                    else:
+                        pass
+                else:
+                    pass
+
+        item_list = MenuHandler.list_files()
+
+        for item in item_list:
+            item_i = FunctionItem(item.name, add_item, [item.id])
+            menu.append_item(item_i)
+
+        menu.show()
