@@ -6,13 +6,10 @@ from prompt_toolkit import prompt
 from data_handling.JsonManager import JsonManager
 from consolemenu import *
 
-
-
 class CustomerHandler:
 
     def __init__(self):
         pass
-
 
     @staticmethod
     def create_new_customer():
@@ -33,4 +30,11 @@ class CustomerHandler:
         JsonManager.create_data(AbstractionType.CUSTOMER, c)
         print(f"Customer created successfully:")
         print(f"{c.name} - New Client-ID: {c.id}")
+        pu.enter_to_continue()
+
+    @staticmethod
+    def list_customers():
+        pu = PromptUtils(Screen())
+        pu.clear()
+        print("Displaying all Customers")
         pu.enter_to_continue()

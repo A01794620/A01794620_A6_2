@@ -2,16 +2,16 @@ import uuid
 
 class Customer:
 
-    def __init__(self, name="", email="", phone=""):
+    def __init__(self, fullname="", email="", phone=""):
         self._id = str(uuid.uuid4())
-        self.name = name
+        self.fullname = fullname
         self.email = email
         self.phone = phone
 
     def __str__(self):
         return (f"Customer Details:\n"
                 f"Id := {self._id}\n"
-                f"Name := {self.name}\n"
+                f"Name := {self._fullname}\n"
                 f"E-mail := {self._email}\n"
                 f"Phone := {self._phone}"
                )
@@ -43,14 +43,14 @@ class Customer:
         self._id = value
 
     @property
-    def name(self):
-        return f"{self._name}"
+    def fullname(self):
+        return f"{self._fullname}"
 
-    @name.setter
-    def name(self, value):
+    @fullname.setter
+    def fullname(self, value):
         if not value:
-            raise ValueError("Name cannot be empty")
-        self._name = value
+            raise ValueError("Fullname cannot be empty")
+        self._fullname = value
 
     @property
     def email(self):

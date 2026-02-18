@@ -110,6 +110,7 @@ class JsonManager:
 
     @staticmethod
     def display_data(data_type):
+
         obj_container = []
         obj_line = None
         full_path = Path(JsonManager.get_path(data_type))
@@ -124,14 +125,16 @@ class JsonManager:
                 data_src = JsonManager.load_from_file(each_file)
 
                 if isinstance(data_src, dict):
-                    name = str(data_src['name'])
-                    id = str(data_src['id'])
-                    age = str(data_src['age'])
-                    obj_line = Customer(name)
-                    obj_line.id = id
-                    obj_line.age = age
+                    # print(data_src)
+
+                    id_ = str(data_src['id'])
+                    full_name = str(data_src['fullname'])
+                    email = str(data_src['email'])
+                    phone = str(data_src['phone'])
+                    obj_line = Customer(full_name, email, phone)
+                    obj_line.id = id_
                     obj_container.append(obj_line)
-                    #print(f"Name:={name} Id:={id} Age:={age}")
+                    #print(obj_line)
                 else:
                     pass
             elif data_type == AbstractionType.HOTEL:
@@ -148,23 +151,23 @@ class JsonManager:
         full_path = JsonManager.get_path(data_type) + id_ + Setting.FILE_EXTENSION
         data_src = JsonManager.load_from_file(full_path)
 
-        name = ""
-        id = ""
-        age = 0
+        # full_name = ""
+        # id = ""
+        # email = ""
+        # phone =""
+
         obj_item = None
 
         if isinstance(data_src, dict):
-            name = str(data_src['name'])
-            id = str(data_src['id'])
-            age = str(data_src['age'])
-            obj_item = Customer(name)
-            obj_item.id = id
-            obj_item.age = age
+            full_name = str(data_src['fullname'])
+            id_ = str(data_src['id'])
+            email = str(data_src['email'])
+            phone = str(data_src['phone'])
+
+            obj_item = Customer(full_name, email, phone)
+            obj_item.id = id_
 
         else:
             pass
 
-        # print(data_src)
-        # print(full_path)
         return obj_item
-

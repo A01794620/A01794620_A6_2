@@ -11,7 +11,6 @@ from cli.CustomerHandler import CustomerHandler
 from consolemenu import *
 from consolemenu.items import *
 
-
 class MenuHandler:
 
     def __init__(self):
@@ -31,8 +30,13 @@ class MenuHandler:
                 # CustomerHandler.create_new_customer()
                 # CustomerHandler.create_new_customer()
                 # print("ON Create Customer")
-            else:
+            elif item_branch == MenuCustomer.DISPLAY.value:
                 print("Some other place but in Customer Area still :-_-")
+                # CustomerHandler.list_customers()
+                MenuHandler.menu_dynamic_handler()
+
+            else:
+                pass
         else:
             print("in other place")
 
@@ -123,28 +127,32 @@ class MenuHandler:
         JsonManager.create_data(AbstractionType.CUSTOMER, c)
         pu.enter_to_continue()
 
-    @staticmethod
-    def list_files():
-        # print("OK")
-        obj_container = JsonManager.display_data(AbstractionType.CUSTOMER)
-        #submenu_item = ConsoleMenu("Customer", "Customer Menu")
-        items = []
-
-        for obj in obj_container:
-            c = Customer(obj.name)
-            c.id = obj.id
-            c.name = obj.name
-            items.append(obj)
-
-        #    function_item = FunctionItem(f"{obj.name}", MenuHandler.file_selection, [obj.id])
-        #    items.append(function_item)
-        # submenu_item.append_item(function_item)
-        # print(obj)
-
-        # return submenu_item
-        # submenu_item.show()
-        # def display_data(data_type):
-        return items
+    # @staticmethod
+    # def list_files():
+    #     # print("OK")
+    #     obj_container = JsonManager.display_data(AbstractionType.CUSTOMER)
+    #     # print(obj_container)
+    #     # submenu_item = ConsoleMenu("Customer", "Customer Menu")
+    #
+    #     items = []
+    #
+    #     for obj in obj_container:
+    #         c = Customer(obj.name)
+    #         c.id = obj.id
+    #         c.name = obj.name
+    #         items.append(obj)
+    #
+    #         print(obj.name)
+    #
+    #     #    function_item = FunctionItem(f"{obj.name}", MenuHandler.file_selection, [obj.id])
+    #     #    items.append(function_item)
+    #     # submenu_item.append_item(function_item)
+    #     # print(obj)
+    #
+    #     # return submenu_item
+    #     # submenu_item.show()
+    #     # def display_data(data_type):
+    #     return items
 
 
     @staticmethod
@@ -182,25 +190,62 @@ class MenuHandler:
 
     @staticmethod
     def menu_dynamic_handler():
-        menu = ConsoleMenu(f"Dynamic Menu", "Initial Subtitle")
+        pu = PromptUtils(Screen())
+        pu.clear()
+
+        menu = ConsoleMenu(f"Customer List", "Aurora Reservation System")
 
         def add_item(id_):
+
             for each in menu.items:
                 each_i = cast(FunctionItem, each)
 
                 if isinstance(each_i, FunctionItem):
+                    # print("OK")
+                    # print(each_i.text)
+
                     if each_i.args[0] == id_:
+
                         c = JsonManager.retrieve_data(AbstractionType.CUSTOMER, each_i.args[0])
-                        each_i.text = c.name + '^'
+                        print(c.fullname)
+                        print("OK")
                     else:
-                        pass
+                        print("")
+
+                    # each_i.text = c.name + '^'
+                    # else:
+                    # pass
+
                 else:
                     pass
 
-        item_list = MenuHandler.list_files()
+            pu.enter_to_continue()
 
-        for item in item_list:
-            item_i = FunctionItem(item.name, add_item, [item.id])
+
+        obj_container = JsonManager.display_data(AbstractionType.CUSTOMER)
+
+
+        for customer_ in obj_container:
+            # print(customer_)
+            item_i = FunctionItem(customer_.fullname, add_item, [customer_.id])
             menu.append_item(item_i)
 
+
         menu.show()
+
+        # print(type(obj_container[0]))
+        #pu.enter_to_continue()
+
+        # pu.enter_to_continue()
+        #for customer_ in obj_container:
+        #    print(customer_)
+
+        #    customer_i = cast(Customer, customer_)
+        #    print(customer_i.fullname)
+
+        # c = Customer(obj)
+        # print(c.fullname)
+        # item_i = FunctionItem(obj.fullname, add_item, [obj.id])
+        # menu.append_item(item_i)
+
+
