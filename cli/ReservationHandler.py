@@ -1,10 +1,13 @@
 from abstraction.AbstractionType import AbstractionType
-from abstraction.Customer import Customer
+from abstraction.Reservation import Reservation
 from cli.MenuDescriptor import MenuDescriptor
 from abstraction.Setting import Setting
 from prompt_toolkit import prompt
 from data_handling.JsonManager import JsonManager
 from consolemenu import *
+# from cli.MenuHandler import MenuHandler
+from abstraction.AbstractionType import AbstractionType
+from consolemenu import SelectionMenu
 
 class ReservationHandler:
 
@@ -29,55 +32,60 @@ class ReservationHandler:
     #
     #     pu.enter_to_continue()
     #
-    # @staticmethod
-    # def register_customer(is_new, on_record_customer):
-    #     pu = PromptUtils(Screen())
-    #     pu.clear()
-    #
-    #     print( Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
-    #     if is_new:
-    #         print('Create a new Customer')
-    #     else:
-    #         print('Edit an existing Customer')
-    #
-    #     print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
-    #     data_values = []
-    #
-    #     for index, customer_field in enumerate(MenuDescriptor.customer_fields):
-    #
-    #         default_value = "<enter a value>"
-    #
-    #         if is_new:
-    #             default_value = ""
-    #         else:
-    #             if index == 0:
-    #                 default_value = on_record_customer.fullname
-    #             elif index == 1:
-    #                 default_value = on_record_customer.email
-    #             elif index == 2:
-    #                 default_value = on_record_customer.phone
-    #             else:
-    #                 default_value = "<enter a value>"
-    #
-    #         user_input = prompt(f"Please enter customer's {customer_field}: ", default=f"{default_value}")
-    #         data_values.append(user_input)
-    #
-    #     customer_ = Customer(data_values[0], data_values[1], data_values[2])
-    #
-    #     if not is_new:
-    #         customer_.id = on_record_customer.id
-    #
-    #     JsonManager.create_data(AbstractionType.CUSTOMER, customer_)
-    #
-    #     if is_new:
-    #         print(f"Customer created successfully:")
-    #         print(f"{customer_.fullname} - New Client-ID: {customer_.id}")
-    #     else:
-    #         print(f"Customer  updated successfully:")
-    #         print(f"{customer_.fullname} - Client-ID: {customer_.id}")
-    #
-    #     pu.enter_to_continue()
-    #
+
+    @staticmethod
+    def register_reservation():
+
+        pu = PromptUtils(Screen())
+        pu.clear()
+
+        print( Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
+        print('Create a new Reservation')
+        customers = JsonManager.display_data(AbstractionType.CUSTOMER)
+
+        customer_items = []
+        ids_items = []
+
+        for customer in customers:
+            customer_items.append(f"{customer.fullname}")
+            ids_items.append(customer.id)
+
+        print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
+        selection = SelectionMenu.get_selection(customer_items, title="Select the Customer for the Reservation", subtitle="Type a valid ordinal number to select the specific Customer.", show_exit_option=False)
+        hotels = JsonManager.display_data(AbstractionType.HOTEL)
+        hotel_items = []
+        ids_hotel_items = []
+
+        for hotel in hotels:
+            hotel_items.append(f"{hotel.name}")
+            ids_hotel_items.append(hotel.id)
+
+        selection_hotel = SelectionMenu.get_selection(hotel_items, title="Select the Hotel for the Reservation", subtitle="Type a valid ordinal number to select the specific Hotel", show_exit_option=False)
+        pu.clear()
+
+        print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
+        print(f"Customer Selected  : {customer_items[selection]}")
+        #print(f"ID Selected Mapped := {ids_items[selection]}")
+        print(f"Hotel Selected  : {hotel_items[selection_hotel]}")
+        # print(f"ID Selected Mapped := {ids_hotel_items[selection_hotel]}")
+        print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
+
+        data_values = []
+
+        for index, customer_field in enumerate(MenuDescriptor.reservation_fields):
+            default_value = ""
+            user_input = prompt(f"Please enter Reservation's {customer_field}: ", default=f"{default_value}")
+            data_values.append(user_input)
+
+        reservation = Reservation(ids_hotel_items[selection_hotel], ids_items[selection], data_values[0], data_values[1])
+
+        print(reservation)
+
+        JsonManager.create_data(AbstractionType.RESERVATION, reservation)
+        print(f"Reservation created successfully:")
+        print(f"New Reservation-ID: {reservation.id}")
+        pu.enter_to_continue()
+
     # @staticmethod
     # def handle_customer(customer):
     #     pu = PromptUtils(Screen())

@@ -22,9 +22,7 @@ class JsonManager:
                 "email": data.email,
                 "phone": data.phone
             }
-
         elif data_type == AbstractionType.HOTEL:
-
             src_data = {
                 "id": data.id,
                 "name": data.name,
@@ -34,7 +32,15 @@ class JsonManager:
             }
 
         elif data_type == AbstractionType.RESERVATION:
-            pass
+            src_data = {
+                "id": data.id,
+                "hotel_id": data.hotel_id,
+                "room": data.room,
+                "customer_id": data.customer_id,
+                "date": data.date,
+                "registration_date": data.registration_date,
+            }
+
         else:
             pass
 
@@ -63,8 +69,11 @@ class JsonManager:
 
     @staticmethod
     def create_data(data_type, data):
+
         full_path = JsonManager.get_path(data_type) + data.id + Setting.FILE_EXTENSION
         src_data = JsonManager.yield_json(data_type, data)
+        # print(src_data)
+        # print(full_path)
 
         try:
             with open(full_path, "w") as json_file:

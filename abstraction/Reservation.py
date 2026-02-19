@@ -5,10 +5,10 @@ class Reservation:
 
     def __init__(self, hotel_id="", customer_id="", room="", date=""):
         self._id = str(uuid.uuid4())
-        self._hotel_id = hotel_id
-        self._customer_id = customer_id
-        self._room = room
-        self._date = date
+        self.hotel_id = hotel_id
+        self.customer_id = customer_id
+        self.room = room
+        self.date = date
         self._registration_date = datetime.datetime.now()
 
     def __str__(self):
@@ -20,6 +20,7 @@ class Reservation:
                 f"Date        := {self._date}\n"
                 f"Reg-Date    := {self._registration_date}\n"
                 )
+
 
     # def create(self, is_screen_out=True):
     #     print("Reservation created!")
@@ -36,12 +37,13 @@ class Reservation:
     @id.setter
     def id(self, value):
         if not value:
-            raise ValueError("ID cannot be empty")
+            raise ValueError("Id cannot be empty")
         self._id = value
+
 
     @property
     def hotel_id(self):
-        return f"{self.hotel_id}"
+        return f"{self._hotel_id}"
 
     @hotel_id.setter
     def hotel_id(self, value):
@@ -51,7 +53,7 @@ class Reservation:
 
     @property
     def customer_id(self):
-        return f"{self.customer_id}"
+        return f"{self._customer_id}"
 
     @customer_id.setter
     def customer_id(self, value):
@@ -66,7 +68,7 @@ class Reservation:
     @room.setter
     def room(self, value):
         if not value:
-            raise ValueError("Room cannot be empty")
+            raise ValueError("Room Number cannot be empty")
         self._room = value
 
     @property
@@ -77,7 +79,7 @@ class Reservation:
     def date(self, value):
         if not value:
             raise ValueError("Date cannot be empty")
-        self._date = value
+        self._date= value
 
     @property
     def registration_date(self):
