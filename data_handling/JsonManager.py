@@ -4,6 +4,7 @@ import os
 
 from abstraction.AbstractionType import AbstractionType
 from abstraction.Customer import Customer
+from abstraction.Hotel import Hotel
 from abstraction.Setting import Setting
 
 class JsonManager:
@@ -14,6 +15,7 @@ class JsonManager:
         src_data = {}
 
         if data_type == AbstractionType.CUSTOMER:
+
             src_data = {
                 "id": data.id,
                 "fullname": data.fullname,
@@ -22,10 +24,15 @@ class JsonManager:
             }
 
         elif data_type == AbstractionType.HOTEL:
+
             src_data = {
                 "id": data.id,
                 "name": data.name,
+                "address": data.address,
+                "email": data.email,
+                "phone": data.phone
             }
+
         elif data_type == AbstractionType.RESERVATION:
             pass
         else:
@@ -112,7 +119,6 @@ class JsonManager:
         obj_container = []
         obj_line = None
         full_path = Path(JsonManager.get_path(data_type))
-
         json_files = list(full_path.glob('**/*' +  Setting.FILE_EXTENSION))
 
         for each_file in json_files:
@@ -122,8 +128,6 @@ class JsonManager:
                 data_src = JsonManager.load_from_file(each_file)
 
                 if isinstance(data_src, dict):
-                    # print(data_src)
-
                     id_ = str(data_src['id'])
                     full_name = str(data_src['fullname'])
                     email = str(data_src['email'])
@@ -131,13 +135,28 @@ class JsonManager:
                     obj_line = Customer(full_name, email, phone)
                     obj_line.id = id_
                     obj_container.append(obj_line)
-                    #print(obj_line)
                 else:
                     pass
             elif data_type == AbstractionType.HOTEL:
-                pass
+                data_src = JsonManager.load_from_file(each_file)
+
+                if isinstance(data_src, dict):
+                    id_= str(data_src['id'])
+                    name = str(data_src['name'])
+                    address = str(data_src['address'])
+                    email = str(data_src['email'])
+                    phone = str(data_src['phone'])
+
+                    obj_line = Hotel(name, address, email, phone)
+                    obj_line.id = id_
+                    obj_container.append(obj_line)
+
+                else:
+                    pass
             elif data_type == AbstractionType.RESERVATION:
+
                 pass
+
             else:
                 pass
 
@@ -145,19 +164,35 @@ class JsonManager:
 
     @staticmethod
     def retrieve_data(data_type, id_):
+
         full_path = JsonManager.get_path(data_type) + id_ + Setting.FILE_EXTENSION
         data_src = JsonManager.load_from_file(full_path)
 
         obj_item = None
 
-        if isinstance(data_src, dict):
-            full_name = str(data_src['fullname'])
-            id_ = str(data_src['id'])
-            email = str(data_src['email'])
-            phone = str(data_src['phone'])
 
-            obj_item = Customer(full_name, email, phone)
-            obj_item.id = id_
+        if isinstance(data_src, dict):
+
+            if data_type == AbstractionType.CUSTOMER:
+                full_name = str(data_src['fullname'])
+                id_ = str(data_src['id'])
+                email = str(data_src['email'])
+                phone = str(data_src['phone'])
+
+                obj_item = Customer(full_name, email, phone)
+                obj_item.id = id_
+            elif data_type == AbstractionType.HOTEL:
+
+                id_ = str(data_src['id'])
+                name = str(data_src['name'])
+                address = str(data_src['address'])
+                email = str(data_src['email'])
+                phone = str(data_src['phone'])
+                obj_item = Hotel(name, address,  email, phone)
+                obj_item.id = id_
+
+            else:
+                pass
 
         else:
             pass

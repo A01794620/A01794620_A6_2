@@ -11,16 +11,16 @@ class MenuDescriptor:
 
     hotel_menu = [
                     'Create Hotel',
-                    'Delete Hotel',
-                    'Display Hotel Information',
-                    'Modify Hotel Information',
-                    'Reserve a Room',
-                    'Cancel a Reservation'
+                    'Display Hotel Information'
     ]
 
+    # 'Reserve a Room',
+    # 'Cancel a Reservation'
+
     reservation_menu = [
-        'Create a Reservation(Customer, Hotel)',
+        'Create a Reservation (Customer, Hotel)',
         'Cancel a Reservation'
     ]
 
     customer_fields = [ 'Full Name', 'E-mail', 'Phone']
+    hotel_fields = ['Hotel Name', 'Address', 'E-mail', 'Phone']

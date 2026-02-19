@@ -16,21 +16,21 @@ class Customer:
                 f"Phone := {self._phone}"
                )
 
-    def create(self, is_screen_out=True):
-        print("Customer created!")
-        print(self)
-
-    def delete(self, is_screen_out=True):
-        print("Customer deleted!")
-        print(self)
-
-    def display(self, is_screen_out=True):
-        print("Customer displayed!")
-        print(self)
-
-    def modify(self, is_screen_out=True):
-            print("Customer modified!")
-            print(self)
+    # def create(self, is_screen_out=True):
+    #     print("Customer created!")
+    #     print(self)
+    #
+    # def delete(self, is_screen_out=True):
+    #     print("Customer deleted!")
+    #     print(self)
+    #
+    # def display(self, is_screen_out=True):
+    #     print("Customer displayed!")
+    #     print(self)
+    #
+    # def modify(self, is_screen_out=True):
+    #         print("Customer modified!")
+    #         print(self)
 
     @property
     def id(self):

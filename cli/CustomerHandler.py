@@ -97,3 +97,10 @@ class CustomerHandler:
             CustomerHandler.register_customer(False, customer)
         else:
             print("Invalid Option System will return to previous menu.")
+
+    @staticmethod
+    def do_customer_removed():
+        pu = PromptUtils(Screen())
+        pu.clear()
+        print("This Customer has been already removed.")
+        pu.enter_to_continue()
