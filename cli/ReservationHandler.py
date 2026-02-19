@@ -1,37 +1,18 @@
-from abstraction.AbstractionType import AbstractionType
 from abstraction.Reservation import Reservation
 from cli.MenuDescriptor import MenuDescriptor
 from abstraction.Setting import Setting
 from prompt_toolkit import prompt
 from data_handling.JsonManager import JsonManager
 from consolemenu import *
-# from cli.MenuHandler import MenuHandler
 from abstraction.AbstractionType import AbstractionType
 from consolemenu import SelectionMenu
+from typing import cast
+from consolemenu.screen import Screen
 
 class ReservationHandler:
 
     def __init__(self):
         pass
-
-    # @staticmethod
-    # def delete_customer(on_record_customer):
-    #     pu = PromptUtils(Screen())
-    #     pu.clear()
-    #     print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
-    #     print('Customer Removal Process')
-    #     print(f"{on_record_customer.fullname} - Client-ID: {on_record_customer.id}")
-    #     print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
-    #     user_input = prompt(f"Please confirm the customer deletion [Y/N]:", default=f"N")
-    #
-    #     if user_input == "Y":
-    #         JsonManager.delete_data(AbstractionType.CUSTOMER, on_record_customer.id)
-    #         print(f"Customer deleted successfully.")
-    #     else:
-    #         print(f"Removal cancelled.")
-    #
-    #     pu.enter_to_continue()
-    #
 
     @staticmethod
     def register_reservation():
@@ -65,9 +46,7 @@ class ReservationHandler:
 
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
         print(f"Customer Selected  : {customer_items[selection]}")
-        #print(f"ID Selected Mapped := {ids_items[selection]}")
         print(f"Hotel Selected  : {hotel_items[selection_hotel]}")
-        # print(f"ID Selected Mapped := {ids_hotel_items[selection_hotel]}")
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
 
         data_values = []
@@ -77,8 +56,7 @@ class ReservationHandler:
             user_input = prompt(f"Please enter Reservation's {customer_field}: ", default=f"{default_value}")
             data_values.append(user_input)
 
-        reservation = Reservation(ids_hotel_items[selection_hotel], ids_items[selection], data_values[0], data_values[1])
-
+        reservation = Reservation(ids_hotel_items[selection_hotel], ids_items[selection], data_values[0], data_values[1], data_values[2], data_values[3])
         print(reservation)
 
         JsonManager.create_data(AbstractionType.RESERVATION, reservation)
@@ -86,29 +64,51 @@ class ReservationHandler:
         print(f"New Reservation-ID: {reservation.id}")
         pu.enter_to_continue()
 
-    # @staticmethod
-    # def handle_customer(customer):
-    #     pu = PromptUtils(Screen())
-    #     pu.clear()
-    #     print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
-    #     print('Customer Administration')
-    #     print(f"{customer.fullname} - Unique Client-ID: {customer.id}")
-    #     print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
-    #     default_value = "M"
-    #     user_input = prompt(f"Please enter [D] for Delete the customer or [M] for Modify the customer: ", default=f"{default_value}")
-    #
-    #     if user_input == "D":
-    #         # print("We will delete the customer.")
-    #         CustomerHandler.delete_customer(customer)
-    #     elif user_input == "M":
-    #         # print("We will modify the customer.")
-    #         CustomerHandler.register_customer(False, customer)
-    #     else:
-    #         print("Invalid Option System will return to previous menu.")
-    #
-    # @staticmethod
-    # def do_customer_removed():
-    #     pu = PromptUtils(Screen())
-    #     pu.clear()
-    #     print("This Customer has been already removed.")
-    #     pu.enter_to_continue()
+    @staticmethod
+    def display_cancel_reservations():
+        reservations = JsonManager.display_data(AbstractionType.RESERVATION)
+        reservations_lines = []
+        pu = PromptUtils(Screen())
+        pu.clear()
+
+        for each_reservation in reservations:
+            reservation = cast(Reservation, each_reservation)
+            customer = JsonManager.retrieve_data(AbstractionType.CUSTOMER, reservation.customer_id)
+            hotel = JsonManager.retrieve_data(AbstractionType.HOTEL, reservation.hotel_id)
+            reservation_parts = reservation.id.split('-')
+
+            reservation_line = f"¬{reservation_parts[0]}¬ {customer.fullname} in {hotel.name}, {reservation.room} on {reservation.date}"
+
+            reservations_lines.append(reservation_line)
+
+        print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
+
+        selection = SelectionMenu.get_selection(reservations_lines, title="Select the Reservation to be cancelled.",
+                                                subtitle="Type a valid ordinal number to select the specific Reservation\n"
+                                                         "Confirmation will be prompted before deleting the Reservation."
+                                                , show_exit_option=False)
+
+        reservation = cast(Reservation, reservations[selection])
+        customer = JsonManager.retrieve_data(AbstractionType.CUSTOMER, reservation.customer_id)
+        hotel = JsonManager.retrieve_data(AbstractionType.HOTEL, reservation.hotel_id)
+        print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
+        print("You have selected this reservation to be cancelled:")
+        print(f"Unique Reservation ID:{reservation.id}")
+        print(f"Customer:{customer.fullname}")
+        print(f"Hotel:{hotel.name}")
+        print(f"Date:{reservation.date}")
+
+        print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
+
+        user_input = prompt(f"Enter [Y] for Delete the Reservation or [N] to cancel the deletion.", default="N")
+        pu.clear()
+
+        if user_input == "Y":
+            JsonManager.delete_data(AbstractionType.RESERVATION, reservation.id)
+            print("Reservation cancelled successfully:.")
+        elif user_input == "M":
+            print("Deletion process has been cancelled.")
+        else:
+            print("Deletion process has been cancelled.")
+
+        pu.enter_to_continue()

@@ -16,9 +16,9 @@ class MenuDescriptor:
 
     reservation_menu = [
                     'Create Reservation',
-                    'Display Reservation Information'
+                    'Cancel Reservation'
     ]
 
     customer_fields = [ 'Full Name', 'E-mail', 'Phone']
     hotel_fields = ['Hotel Name', 'Address', 'E-mail', 'Phone']
-    reservation_fields = ['Room Number', 'Reservation Date']
+    reservation_fields = ['Room Number', 'Number of Adults', 'Number of Children',  'Reservation Date']

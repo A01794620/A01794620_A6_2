@@ -40,7 +40,7 @@ class MenuHandler:
             if item_branch == MenuReservation.CREATE.value:
                 ReservationHandler.register_reservation()
             elif item_branch == MenuHotel.DISPLAY.value:
-                pass
+                ReservationHandler.display_cancel_reservations()
             else:
                 pass
         else:

@@ -3,11 +3,13 @@ import uuid
 
 class Reservation:
 
-    def __init__(self, hotel_id="", customer_id="", room="", date=""):
+    def __init__(self, hotel_id="", customer_id="", room="", adults_number=0, children_number=0,  date=""):
         self._id = str(uuid.uuid4())
         self.hotel_id = hotel_id
         self.customer_id = customer_id
         self.room = room
+        self.adults_number = adults_number
+        self.children_number = children_number
         self.date = date
         self._registration_date = datetime.datetime.now()
 
@@ -17,18 +19,11 @@ class Reservation:
                 f"Hotel-Id    := {self._hotel_id}\n"
                 f"Room        := {self._room}\n"
                 f"Customer-Id := {self._customer_id}\n"
+                f"Adults #    := {self._adults_number}\n"
+                f"Children #  := {self._children_number}\n"
                 f"Date        := {self._date}\n"
                 f"Reg-Date    := {self._registration_date}\n"
                 )
-
-
-    # def create(self, is_screen_out=True):
-    #     print("Reservation created!")
-    #     print(self)
-    #
-    # def cancel(self, is_screen_out=True):
-    #     print("Reservation deleted!")
-    #     print(self)
 
     @property
     def id(self):
@@ -84,3 +79,23 @@ class Reservation:
     @property
     def registration_date(self):
         return f"{self._registration_date}"
+
+    @property
+    def adults_number(self):
+        return f"{self._adults_number}"
+
+    @adults_number.setter
+    def adults_number(self, value):
+        if not value:
+            raise ValueError("Adults Number cannot be empty")
+        self._adults_number= value
+
+    @property
+    def children_number(self):
+        return f"{self._children_number}"
+
+    @children_number.setter
+    def children_number(self, value):
+        if not value:
+            raise ValueError("Adults Number cannot be empty")
+        self._children_number = value

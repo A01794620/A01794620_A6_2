@@ -90,10 +90,8 @@ class CustomerHandler:
         user_input = prompt(f"Please enter [D] for Delete the customer or [M] for Modify the customer: ", default=f"{default_value}")
 
         if user_input == "D":
-            # print("We will delete the customer.")
             CustomerHandler.delete_customer(customer)
         elif user_input == "M":
-            # print("We will modify the customer.")
             CustomerHandler.register_customer(False, customer)
         else:
             print("Invalid Option System will return to previous menu.")

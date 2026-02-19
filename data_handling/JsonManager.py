@@ -5,6 +5,7 @@ import os
 from abstraction.AbstractionType import AbstractionType
 from abstraction.Customer import Customer
 from abstraction.Hotel import Hotel
+from abstraction.Reservation import Reservation
 from abstraction.Setting import Setting
 
 class JsonManager:
@@ -34,9 +35,11 @@ class JsonManager:
         elif data_type == AbstractionType.RESERVATION:
             src_data = {
                 "id": data.id,
+                "customer_id": data.customer_id,
                 "hotel_id": data.hotel_id,
                 "room": data.room,
-                "customer_id": data.customer_id,
+                "adults_number": data.adults_number,
+                "children_number": data.children_number,
                 "date": data.date,
                 "registration_date": data.registration_date,
             }
@@ -72,8 +75,6 @@ class JsonManager:
 
         full_path = JsonManager.get_path(data_type) + data.id + Setting.FILE_EXTENSION
         src_data = JsonManager.yield_json(data_type, data)
-        # print(src_data)
-        # print(full_path)
 
         try:
             with open(full_path, "w") as json_file:
@@ -160,12 +161,23 @@ class JsonManager:
                     obj_line.id = id_
                     obj_container.append(obj_line)
 
-                else:
-                    pass
             elif data_type == AbstractionType.RESERVATION:
+                    data_src = JsonManager.load_from_file(each_file)
 
-                pass
-
+                    if isinstance(data_src, dict):
+                        id_ = str(data_src['id'])
+                        customer_id = str(data_src['customer_id'])
+                        hotel_id = str(data_src['hotel_id'])
+                        room = str(data_src['room'])
+                        adults_number = str(data_src['adults_number'])
+                        children_number = str(data_src['children_number'])
+                        date = str(data_src['date'])
+                        registration_date = str(data_src['registration_date'])
+                        obj_line = Reservation(hotel_id, customer_id, room, adults_number, children_number, date)
+                        obj_line.id = id_
+                        obj_container.append(obj_line)
+                    else:
+                        pass
             else:
                 pass
 
@@ -175,35 +187,36 @@ class JsonManager:
     def retrieve_data(data_type, id_):
 
         full_path = JsonManager.get_path(data_type) + id_ + Setting.FILE_EXTENSION
-        data_src = JsonManager.load_from_file(full_path)
-
         obj_item = None
+        data_src = ""
 
+        if JsonManager.has_data(data_type, id_):
+            data_src = JsonManager.load_from_file(full_path)
 
-        if isinstance(data_src, dict):
+        if data_src != "":
+            if isinstance(data_src, dict):
+                if data_type == AbstractionType.CUSTOMER:
+                    full_name = str(data_src['fullname'])
+                    id_ = str(data_src['id'])
+                    email = str(data_src['email'])
+                    phone = str(data_src['phone'])
 
-            if data_type == AbstractionType.CUSTOMER:
-                full_name = str(data_src['fullname'])
-                id_ = str(data_src['id'])
-                email = str(data_src['email'])
-                phone = str(data_src['phone'])
-
-                obj_item = Customer(full_name, email, phone)
-                obj_item.id = id_
-            elif data_type == AbstractionType.HOTEL:
-
-                id_ = str(data_src['id'])
-                name = str(data_src['name'])
-                address = str(data_src['address'])
-                email = str(data_src['email'])
-                phone = str(data_src['phone'])
-                obj_item = Hotel(name, address,  email, phone)
-                obj_item.id = id_
-
+                    obj_item = Customer(full_name, email, phone)
+                    obj_item.id = id_
+                elif data_type == AbstractionType.HOTEL:
+                    id_ = str(data_src['id'])
+                    name = str(data_src['name'])
+                    address = str(data_src['address'])
+                    email = str(data_src['email'])
+                    phone = str(data_src['phone'])
+                    obj_item = Hotel(name, address,  email, phone)
+                    obj_item.id = id_
+                else:
+                    pass
             else:
                 pass
-
         else:
+            # File is empty, removed or not found
             pass
 
         return obj_item

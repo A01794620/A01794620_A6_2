@@ -18,30 +18,6 @@ class Hotel:
                 f"Phone   := {self.phone}\n"
                )
 
-    # def create(self):
-    #     print("Hotel created!")
-    #     print(self)
-    #
-    # def delete(self):
-    #     print("Hotel deleted!")
-    #     print(self)
-    #
-    # def display(self):
-    #     print("Hotel displayed!")
-    #     print(self)
-    #
-    # def modify(self):
-    #         print("Hotel modified!")
-    #         print(self)
-    #
-    # def reserver_room(self):
-    #     print("Room Reserved!")
-    #     print(self)
-    #
-    # def cancel_reservation(self):
-    #         print("Reservation Cancelled!")
-    #         print(self)
-
     @property
     def id(self):
         return f"{self._id}"
