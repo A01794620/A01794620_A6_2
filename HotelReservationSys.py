@@ -1,9 +1,7 @@
 from cli.MenuHandler import MenuHandler
 
 def start(name):
-    # MenuHandler.menu_dynamic_handler()
     MenuHandler.show_system_menu("Aurora Reservation System", "An Aurora Group Company")
-    # print(name)
 
 if __name__ == '__main__':
     names = [

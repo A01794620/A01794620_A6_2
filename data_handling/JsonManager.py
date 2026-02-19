@@ -59,12 +59,6 @@ class JsonManager:
         full_path = JsonManager.get_path(data_type) + data.id + Setting.FILE_EXTENSION
         src_data = JsonManager.yield_json(data_type, data)
 
-        # print("*" * 10)
-        # print(src_data)
-        # print(full_path)
-        # print("*" * 10)
-        # return
-
         try:
             with open(full_path, "w") as json_file:
                 json.dump(src_data, json_file, indent=4)
@@ -79,9 +73,6 @@ class JsonManager:
     @staticmethod
     def delete_data(data_type, file_id):
         full_path = JsonManager.get_path(data_type) + file_id + Setting.FILE_EXTENSION
-        # data_path = Path(__file__)
-        # full_path = str(data_path.parent.parent) + catalog_path + file_id + ".json"
-        print(full_path)
 
         try:
             if os.path.exists(full_path):
@@ -121,7 +112,6 @@ class JsonManager:
         obj_container = []
         obj_line = None
         full_path = Path(JsonManager.get_path(data_type))
-        # print(full_path)
 
         json_files = list(full_path.glob('**/*' +  Setting.FILE_EXTENSION))
 
@@ -158,11 +148,6 @@ class JsonManager:
         full_path = JsonManager.get_path(data_type) + id_ + Setting.FILE_EXTENSION
         data_src = JsonManager.load_from_file(full_path)
 
-        # full_name = ""
-        # id = ""
-        # email = ""
-        # phone =""
-
         obj_item = None
 
         if isinstance(data_src, dict):
@@ -182,7 +167,6 @@ class JsonManager:
     @staticmethod
     def has_data(data_type, file_id):
         full_path = JsonManager.get_path(data_type) + file_id + Setting.FILE_EXTENSION
-        print(full_path)
 
         try:
             if os.path.exists(full_path):
@@ -199,4 +183,3 @@ class JsonManager:
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
             return False
-

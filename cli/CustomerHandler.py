@@ -97,12 +97,3 @@ class CustomerHandler:
             CustomerHandler.register_customer(False, customer)
         else:
             print("Invalid Option System will return to previous menu.")
-
-        # pu.enter_to_continue()
-
-    # @staticmethod
-    # def list_customers():
-    #     pu = PromptUtils(Screen())
-    #     pu.clear()
-    #     print("Displaying all Customers")
-    #     pu.enter_to_continue()
