@@ -7,7 +7,6 @@ from typing import cast
 from cli.CustomerHandler import CustomerHandler
 from consolemenu import *
 from consolemenu.items import *
-
 from cli.HotelHandler import HotelHandler
 
 class MenuHandler:
@@ -79,7 +78,6 @@ class MenuHandler:
 
     @staticmethod
     def menu_dynamic_handler(data_type):
-
         pu = PromptUtils(Screen())
         pu.clear()
 
@@ -88,7 +86,6 @@ class MenuHandler:
                            "Select one ordinal number from the list.")
 
         def add_item(id_):
-
             for each in menu.items:
                 each_i = cast(FunctionItem, each)
 
@@ -115,6 +112,7 @@ class MenuHandler:
                                 print("")
 
                     elif data_type == AbstractionType.HOTEL:
+
                         if "<Deleted>" in each_i.text:
                             if each_i.args[0] == id_:
                                 HotelHandler.do_hotel_removed()

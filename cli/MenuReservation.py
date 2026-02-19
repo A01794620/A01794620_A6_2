@@ -1,5 +1,5 @@
 from enum import Enum
 
-class MenuCustomer(Enum):
+class MenuReservation (Enum):
     CREATE = 0
     DISPLAY = 1
