@@ -1,5 +1,6 @@
 from setting.Setting import Setting
 from setting.UuidHandler import UuidHandler
+from setting.Validator import Validator
 
 class Hotel:
 
@@ -24,6 +25,21 @@ class Hotel:
                 f"Phone   := {self.phone}\n" +
                 head_line
                )
+
+    def is_valid_id(self):
+        return UuidHandler.is_valid_id(self.id)
+
+    def is_valid_name(self):
+        return Validator.is_valid_subject_name(self.name, False)
+
+    def is_valid_address(self):
+        return Validator.is_valid_subject_name(self.address, False, is_address=True)
+
+    def is_valid_phone(self):
+        return Validator.is_valid_phone_number(self.phone)
+
+    def is_valid_email(self):
+        return Validator.is_valid_email(self.email)
 
     @property
     def id(self):

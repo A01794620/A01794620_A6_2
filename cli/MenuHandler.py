@@ -85,7 +85,6 @@ class MenuHandler:
             pass
 
 
-
     @staticmethod
     def menu_dynamic_handler(data_type):
         pu = PromptUtils(Screen())

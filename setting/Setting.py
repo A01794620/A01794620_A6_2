@@ -22,4 +22,8 @@ class Setting:
     SYNTHETIC_DATA_QUANTITY_NUMBER = 2
     SYNTHETIC_DATA_PHONE_NUMBER = "+506 88785054"
     EMAIL_PATTERN = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    ADDRESS_PATTERN = r'^[a-zA-Z0-9\s.,]+,\s*[a-zA-Z0-9\s.,]+$'
     SYNTHETIC_DATA_EMAIL = "rsandi@gmail.com"
+    SYNTHETIC_DATA_FULLNAME = "Ronald Sandí Quesada"
+    SYNTHETIC_DATA_HOTEL_NAME = "Hotel the Green Bag In"
+    SYNTHETIC_DATA_ADDRESS = "Av. Vasco de Quiroga N. 3800, Col. Lomas de Santa Fe"

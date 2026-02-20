@@ -22,11 +22,17 @@ class Customer:
                 head_line
                )
 
+    def is_valid_id(self):
+        return UuidHandler.is_valid_id(self.id)
+
     def is_valid_phone(self):
         return Validator.is_valid_phone_number(self.phone)
 
     def is_valid_email(self):
         return Validator.is_valid_email(self.email)
+
+    def is_valid_fullname(self):
+        return Validator.is_valid_subject_name(self.fullname)
 
     @property
     def id(self):
