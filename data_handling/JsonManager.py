@@ -5,7 +5,7 @@ from abstraction.AbstractionType import AbstractionType
 from abstraction.Customer import Customer
 from abstraction.Hotel import Hotel
 from abstraction.Reservation import Reservation
-from abstraction.Setting import Setting
+from setting.Setting import Setting
 
 class JsonManager:
 
@@ -92,7 +92,7 @@ class JsonManager:
 
         try:
             if os.path.exists(full_path):
-                print("Removing " + full_path + " file.")
+                # print("Removing " + full_path + " file.")
                 os.remove(full_path)
             else:
                 print("The file " + full_path + " does not exist.")

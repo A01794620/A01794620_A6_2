@@ -1,6 +1,6 @@
 from abstraction.Reservation import Reservation
 from cli.MenuDescriptor import MenuDescriptor
-from abstraction.Setting import Setting
+from setting.Setting import Setting
 from prompt_toolkit import prompt
 from data_handling.JsonManager import JsonManager
 from consolemenu import PromptUtils
@@ -106,7 +106,7 @@ class ReservationHandler:
 
         if user_input == "Y":
             JsonManager.delete_data(AbstractionType.RESERVATION, reservation.id)
-            print("Reservation cancelled successfully:.")
+            print("Reservation cancelled successfully.")
         elif user_input == "M":
             print("Deletion process has been cancelled.")
         else:

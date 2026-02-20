@@ -11,11 +11,48 @@ from cli.HotelHandler import HotelHandler
 from cli.ReservationHandler import ReservationHandler
 from consolemenu import Screen
 from consolemenu import PromptUtils
+from setting.Setting import Setting
 
 class MenuHandler:
 
     def __init__(self):
         pass
+
+    @staticmethod
+    def show_system_menu(title, sub_title):
+        main_menu = ConsoleMenu(title, sub_title)
+
+        for index, sub_branch in enumerate(MenuDescriptor.root_menu):
+            submenu_item = ConsoleMenu(Setting.SYSTEM_CANONICAL + '\n' + Setting.SYSTEM_MISSION,f"{sub_branch} Management")
+            submenu_item_root = SubmenuItem(f"{sub_branch} Operations", submenu=submenu_item)
+
+            if index == AbstractionType.CUSTOMER.value:
+                for index_item, customer_branch in enumerate(MenuDescriptor.customer_menu):
+                    args = [str(index) + "-" + str(index_item)]
+                    function_item = FunctionItem(customer_branch, MenuHandler.item_handler, args)
+                    submenu_item.append_item(function_item)
+
+                submenu_item.exit_item.text = f"Return to {Setting.SYSTEM_MAIN_MENU}"
+
+            elif index == AbstractionType.HOTEL.value:
+                for index_item, hotel_branch in enumerate(MenuDescriptor.hotel_menu):
+                    args = [str(index) + "-" + str(index_item)]
+                    function_item = FunctionItem(hotel_branch, MenuHandler.item_handler, args)
+                    submenu_item.append_item(function_item)
+
+                submenu_item.exit_item.text = f"Return to {Setting.SYSTEM_MAIN_MENU}"
+
+            elif index == AbstractionType.RESERVATION.value:
+                for index_item, reservation_branch in enumerate(MenuDescriptor.reservation_menu):
+                    args = [str(index) + "-" + str(index_item)]
+                    function_item = FunctionItem(reservation_branch, MenuHandler.item_handler, args)
+                    submenu_item.append_item(function_item)
+                submenu_item.exit_item.text = f"Return to {Setting.SYSTEM_MAIN_MENU}"
+
+            submenu_item_root.set_menu(main_menu)
+            main_menu.append_item(submenu_item_root)
+
+        main_menu.show()
 
     @staticmethod
     def item_handler(args_):
@@ -47,43 +84,27 @@ class MenuHandler:
         else:
             pass
 
-    @staticmethod
-    def show_system_menu(title, sub_title):
-        main_menu = ConsoleMenu(title, sub_title)
 
-        for index, sub_branch in enumerate(MenuDescriptor.root_menu):
-            submenu_item = ConsoleMenu(f"{sub_branch} Management", sub_branch)
-            submenu_item_root = SubmenuItem(f"{sub_branch} Operations", submenu=submenu_item)
-
-            if index == AbstractionType.CUSTOMER.value:
-                for index_item, customer_branch in enumerate(MenuDescriptor.customer_menu):
-                    args = [str(index) + "-" +  str(index_item)]
-                    function_item = FunctionItem(customer_branch, MenuHandler.item_handler, args)
-                    submenu_item.append_item(function_item)
-            elif index == AbstractionType.HOTEL.value:
-                for index_item, hotel_branch in enumerate(MenuDescriptor.hotel_menu):
-                    args = [str(index) + "-" +  str(index_item)]
-                    function_item = FunctionItem(hotel_branch, MenuHandler.item_handler, args)
-                    submenu_item.append_item(function_item)
-            elif index == AbstractionType.RESERVATION.value:
-                for index_item, reservation_branch in enumerate(MenuDescriptor.reservation_menu):
-                    args = [str(index) + "-" +  str(index_item)]
-                    function_item = FunctionItem(reservation_branch, MenuHandler.item_handler, args)
-                    submenu_item.append_item(function_item)
-
-            submenu_item_root.set_menu(main_menu)
-            main_menu.append_item(submenu_item_root)
-
-        main_menu.show()
 
     @staticmethod
     def menu_dynamic_handler(data_type):
         pu = PromptUtils(Screen())
         pu.clear()
 
-        menu = ConsoleMenu(f"List",
-                           "Aurora Reservation System\n"
-                           "Select one ordinal number from the list.")
+        label = ""
+        if data_type == AbstractionType.CUSTOMER:
+            label = "Customer"
+        elif data_type == AbstractionType.HOTEL:
+            label = "Hotel"
+        elif data_type == AbstractionType.RESERVATION:
+            label = "Reservation"
+        else:
+            pass
+
+        menu = ConsoleMenu(Setting.SYSTEM_CANONICAL + '\n' +Setting.SYSTEM_MISSION,
+                           f"{label} Administration Module\n" + f"Enter a number from the list below to select the specific {label}.\n"
+                           "The last number will return to previous menu.\n"
+                           "An invalid number selection will be voided.")
 
         def add_item(id_):
             for each in menu.items:

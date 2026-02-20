@@ -1,5 +1,5 @@
 import uuid
-from abstraction.Setting import Setting
+from setting.Setting import Setting
 
 class Customer:
 
