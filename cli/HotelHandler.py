@@ -102,7 +102,6 @@ class HotelHandler:
         if user_input == "D":
             HotelHandler.delete_hotel(hotel)
         elif user_input == "M":
-            # print("We will modify the customer.")
             HotelHandler.register_hotel(False, hotel)
         else:
             print("Invalid Option System will return to previous menu.")

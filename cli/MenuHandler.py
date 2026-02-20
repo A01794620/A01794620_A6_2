@@ -57,13 +57,11 @@ class MenuHandler:
 
             if index == AbstractionType.CUSTOMER.value:
                 for index_item, customer_branch in enumerate(MenuDescriptor.customer_menu):
-                    # print(customer_branch)
                     args = [str(index) + "-" +  str(index_item)]
                     function_item = FunctionItem(customer_branch, MenuHandler.item_handler, args)
                     submenu_item.append_item(function_item)
             elif index == AbstractionType.HOTEL.value:
                 for index_item, hotel_branch in enumerate(MenuDescriptor.hotel_menu):
-                    # print(hotel_branch)
                     args = [str(index) + "-" +  str(index_item)]
                     function_item = FunctionItem(hotel_branch, MenuHandler.item_handler, args)
                     submenu_item.append_item(function_item)
