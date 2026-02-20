@@ -1,5 +1,6 @@
 from setting.Setting import Setting
 from setting.UuidHandler import UuidHandler
+from setting.Validator import Validator
 
 class Customer:
 
@@ -21,6 +22,11 @@ class Customer:
                 f"Phone   := {self._phone}\n" +
                 head_line
                )
+    def is_valid_phone(self):
+        return Validator.is_valid_phone_number(self.phone)
+
+    def is_valid_email(self):
+        return Validator.is_valid_email(self.email)
 
     @property
     def id(self):

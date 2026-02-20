@@ -6,7 +6,6 @@ from setting.Validator import Validator
 class Reservation:
 
     def __init__(self, hotel_id=None, customer_id=None, room=None, adults_number=None, children_number=None,  date=None):
-        # self._id = str(uuid.uuid4())
         self._id = UuidHandler.get_next_id()
         self._registration_date = datetime.datetime.now()
 
@@ -14,7 +13,7 @@ class Reservation:
         self.customer_id = Setting.NULL_VALUE if customer_id is None else customer_id
         self.room = Setting.NULL_VALUE if room is None else room
         self.adults_number = Setting.NULL_NUMBER if adults_number is None else adults_number
-        self.children_number = Setting.NULL_VALUE if children_number is None else children_number
+        self.children_number = Setting.NULL_NUMBER if children_number is None else children_number
         self.date = Setting.NULL_VALUE if date is None else date
 
     def __str__(self):
@@ -48,6 +47,9 @@ class Reservation:
 
     def is_valid_adult_quantity(self):
         return Reservation.is_valid_quantity(self.adults_number,1)
+
+    def is_valid_children_quantity(self):
+        return Reservation.is_valid_quantity(self.children_number,0)
 
     @staticmethod
     def is_valid_quantity(quantity, min_quantity):
@@ -127,7 +129,7 @@ class Reservation:
 
     @property
     def children_number(self):
-        return f"{self._children_number}"
+        return self._children_number
 
     @children_number.setter
     def children_number(self, value):

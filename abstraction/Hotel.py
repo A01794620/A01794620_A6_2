@@ -11,7 +11,6 @@ class Hotel:
         self._email = Setting.NULL_VALUE if email is None else email
         self._phone = Setting.NULL_VALUE if phone is None else phone
 
-
     def __str__(self):
         head_line = Setting.HEAD_SYMBOL * Setting.COL_WIDTH
 

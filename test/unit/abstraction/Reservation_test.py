@@ -41,12 +41,21 @@ class ReservationTest(unittest.TestCase):
 
     def test_assert_true_adult_quantity(self):
         self.reservation.adults_number = Setting.SYNTHETIC_DATA_QUANTITY_NUMBER
-        print(self.reservation)
+        # print(self.reservation)
         self.assertTrue(self.reservation.is_valid_adult_quantity(), msg="Testing if number of adults in room is valid")
 
     def test_assert_false_adult_quantity(self):
-        print(self.reservation)
+        self.reservation.adult_quantity = Setting.NULL_NUMBER
         self.assertFalse(self.reservation.is_valid_adult_quantity(), msg="Testing if number of adults in room is not valid")
+
+    def test_assert_true_children_quantity(self):
+        self.reservation.children_number = Setting.SYNTHETIC_DATA_QUANTITY_NUMBER
+        self.assertTrue(self.reservation.is_valid_children_quantity(), msg="Testing if number of children in room is valid")
+
+    def test_assert_false_children_quantity(self):
+        self.reservation.children_number = Setting.NULL_NUMBER
+        self.assertFalse(self.reservation.is_valid_children_quantity(), msg="Testing if number of children in room is not valid")
+
 
     # def test_assert_raises_hotel_id_value_error(self):
     #     with self.assertRaises(ValueError):

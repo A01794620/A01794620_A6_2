@@ -20,3 +20,6 @@ class Setting:
     SYNTHETIC_DATA_DATE = "1-1-2027"
     DATE_FORMAT = "%m-%d-%Y"
     SYNTHETIC_DATA_QUANTITY_NUMBER = 2
+    SYNTHETIC_DATA_PHONE_NUMBER = "+506 88785054"
+    EMAIL_PATTERN = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    SYNTHETIC_DATA_EMAIL = "rsandi@gmail.com"
