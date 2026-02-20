@@ -33,6 +33,15 @@ class Reservation:
                 head_line
                 )
 
+    def is_valid_id(self):
+        return UuidHandler.is_valid_id(self.id)
+
+    def is_valid_hotel_id(self):
+        return UuidHandler.is_valid_id(self.hotel_id)
+
+    def is_valid_customer_id(self):
+        return UuidHandler.is_valid_id(self.customer_id)
+
     def is_valid_room(self):
         if self.room == Setting.NULL_VALUE:
             return False
@@ -50,6 +59,7 @@ class Reservation:
 
     def is_valid_children_quantity(self):
         return Reservation.is_valid_quantity(self.children_number,0)
+
 
     @staticmethod
     def is_valid_quantity(quantity, min_quantity):

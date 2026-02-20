@@ -1,6 +1,4 @@
 from datetime import datetime
-
-import setting
 from setting.Setting import Setting
 import phonenumbers
 import re
@@ -50,11 +48,6 @@ class Validator:
             return False
     @staticmethod
     def is_valid_email(src_str):
-        # print("^" * 10)
-        # print(Setting.EMAIL_PATTERN)
-        # print(src_str)
-        # print("^" * 10)
-
         if re.fullmatch(Setting.EMAIL_PATTERN, src_str):
             return True
         else:
