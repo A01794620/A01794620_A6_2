@@ -1,7 +1,5 @@
-from cli.MenuCustomer import MenuCustomer
+
 from cli.MenuDescriptor import MenuDescriptor
-from cli.MenuHotel import MenuHotel
-from cli.MenuReservation import MenuReservation
 from cli.MenuType import MenuType
 from data_handling.JsonManager import JsonManager
 from abstraction.AbstractionType import AbstractionType
