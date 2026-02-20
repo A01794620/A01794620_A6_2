@@ -1,23 +1,24 @@
-import uuid
 from setting.Setting import Setting
+from setting.UuidHandler import UuidHandler
 
 class Customer:
 
-    def __init__(self, fullname="", email="", phone=""):
-        self._id = str(uuid.uuid4())
-        self.fullname = fullname
-        self.email = email
-        self.phone = phone
+    def __init__(self, fullname=None, email=None, phone=None):
+        # self.id = str(uuid.uuid4())
+        self._id = UuidHandler.get_next_id()
+        self.fullname = Setting.NULL_VALUE if fullname is None else fullname
+        self.email = Setting.NULL_VALUE if email is None else email
+        self.phone = Setting.NULL_VALUE if phone is None else phone
 
     def __str__(self):
         head_line = Setting.HEAD_SYMBOL * Setting.COL_WIDTH
-        return (head_line +
+        return (head_line + '\n' +
                 f"Customer Details:\n" +
-                head_line +
-                f"ID := {self._id}\n"
-                f"Name := {self._fullname}\n"
-                f"E-mail := {self._email}\n"
-                f"Phone := {self._phone}\n" +
+                head_line + '\n' +
+                f"ID      := {self._id}\n"
+                f"Name    := {self._fullname}\n"
+                f"E-mail  := {self._email}\n"
+                f"Phone   := {self._phone}\n" +
                 head_line
                )
 

@@ -12,3 +12,6 @@ class Setting:
     SEP_PATH = "\\"
     HEAD_SYMBOL = "—"
     COL_WIDTH = 60
+    NULL_VALUE = "Ø"
+    NULL_DATE_VALUE = "1970-01-01"
+    SYNTHETIC_DATA_UUID = "afb4b554-6c0c-4c70-873c-9de1321bb55d"

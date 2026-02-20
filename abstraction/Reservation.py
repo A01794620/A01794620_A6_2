@@ -1,25 +1,28 @@
 import datetime
-import uuid
 from setting.Setting import Setting
+from setting.UuidHandler import UuidHandler
+
 
 class Reservation:
 
-    def __init__(self, hotel_id="", customer_id="", room="", adults_number=0, children_number=0,  date=""):
-        self._id = str(uuid.uuid4())
-        self.hotel_id = hotel_id
-        self.customer_id = customer_id
-        self.room = room
-        self.adults_number = adults_number
-        self.children_number = children_number
-        self.date = date
+    def __init__(self, hotel_id=None, customer_id=None, room=None, adults_number=None, children_number=None,  date=None):
+        # self._id = str(uuid.uuid4())
+        self._id = UuidHandler.get_next_id()
         self._registration_date = datetime.datetime.now()
+
+        self.hotel_id = Setting.NULL_VALUE if hotel_id is None else hotel_id
+        self.customer_id = Setting.NULL_VALUE if customer_id is None else customer_id
+        self.room = Setting.NULL_VALUE if room is None else room
+        self.adults_number = Setting.NULL_VALUE if adults_number is None else adults_number
+        self.children_number = Setting.NULL_VALUE if children_number is None else children_number
+        self.date = Setting.NULL_VALUE if date is None else date
 
     def __str__(self):
         head_line = Setting.HEAD_SYMBOL * Setting.COL_WIDTH
 
-        return (head_line +
+        return (head_line + '\n' +
                 f"Reservation Details:\n" +
-                head_line +
+                head_line + '\n' +
                 f"ID          := {self._id}\n"
                 f"Hotel-ID    := {self._hotel_id}\n"
                 f"Room        := {self._room}\n"
@@ -27,7 +30,8 @@ class Reservation:
                 f"Adults   #  := {self._adults_number}\n"
                 f"Children #  := {self._children_number}\n"
                 f"Date        := {self._date}\n"
-                f"Reg-Date    := {self._registration_date}\n"
+                f"Reg-Date    := {self._registration_date}\n" +
+                head_line
                 )
 
     @property

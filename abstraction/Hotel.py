@@ -1,21 +1,23 @@
-import uuid
 from setting.Setting import Setting
+from setting.UuidHandler import UuidHandler
 
 class Hotel:
 
-    def __init__(self, name="", address="", email="", phone=""):
-        self._name = name
-        self._address = address
-        self._email = email
-        self._phone = phone
-        self._id = str(uuid.uuid4())
+    def __init__(self, name=None, address=None, email=None, phone=None):
+        # self._id = str(uuid.uuid4())
+        self._id = UuidHandler.get_next_id()
+        self._name = Setting.NULL_VALUE if name is None else name
+        self._address = Setting.NULL_VALUE if address is None else address
+        self._email = Setting.NULL_VALUE if email is None else email
+        self._phone = Setting.NULL_VALUE if phone is None else phone
+
 
     def __str__(self):
         head_line = Setting.HEAD_SYMBOL * Setting.COL_WIDTH
 
-        return (head_line +
+        return (head_line + '\n' +
                 f"Hotel Details:\n" +
-                head_line +
+                head_line  + '\n' +
                 f"ID      := {self.id}\n"
                 f"Name    := {self.name}\n"
                 f"Address := {self.address}\n"
