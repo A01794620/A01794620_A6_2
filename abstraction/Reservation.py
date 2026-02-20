@@ -1,7 +1,7 @@
 import datetime
 from setting.Setting import Setting
 from setting.UuidHandler import UuidHandler
-
+from setting.Validator import Validator
 
 class Reservation:
 
@@ -13,7 +13,7 @@ class Reservation:
         self.hotel_id = Setting.NULL_VALUE if hotel_id is None else hotel_id
         self.customer_id = Setting.NULL_VALUE if customer_id is None else customer_id
         self.room = Setting.NULL_VALUE if room is None else room
-        self.adults_number = Setting.NULL_VALUE if adults_number is None else adults_number
+        self.adults_number = Setting.NULL_NUMBER if adults_number is None else adults_number
         self.children_number = Setting.NULL_VALUE if children_number is None else children_number
         self.date = Setting.NULL_VALUE if date is None else date
 
@@ -33,6 +33,32 @@ class Reservation:
                 f"Reg-Date    := {self._registration_date}\n" +
                 head_line
                 )
+
+    def is_valid_room(self):
+        if self.room == Setting.NULL_VALUE:
+            return False
+        else:
+            return Validator.has_min_len(self.room, 1)
+
+    def is_valid_date(self):
+        if self.date == Setting.NULL_VALUE:
+            return False
+        else:
+            return Validator.is_valid_date(self.date)
+
+    def is_valid_adult_quantity(self):
+        return Reservation.is_valid_quantity(self.adults_number,1)
+
+    @staticmethod
+    def is_valid_quantity(quantity, min_quantity):
+
+        if Validator.is_valid_quantity(quantity):
+            if quantity >= min_quantity:
+                return True
+            else:
+                return False
+        else:
+            return False
 
     @property
     def id(self):
@@ -91,7 +117,7 @@ class Reservation:
 
     @property
     def adults_number(self):
-        return f"{self._adults_number}"
+        return self._adults_number
 
     @adults_number.setter
     def adults_number(self, value):

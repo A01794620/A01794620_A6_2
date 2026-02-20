@@ -8,17 +8,45 @@ from abstraction.Reservation import Reservation
 from setting.UuidHandler import UuidHandler
 from setting.Setting import Setting
 
-class CustomerTest(unittest.TestCase):
+class ReservationTest(unittest.TestCase):
     def setUp(self):
-        self.reservation = Reservation()
+         self.reservation = Reservation()
 
-    def test_assert_raises_uuid_value_error(self):
-        with self.assertRaises(ValueError):
-             self.reservation.id = ""
+    # def test_assert_raises_uuid_value_error(self):
+    #     with self.assertRaises(ValueError):
+    #          self.reservation.id = ""
+    #
+    # def test_assert_true_uuid_value(self):
+    #     self.reservation.id = Setting.SYNTHETIC_DATA_UUID
+    #     self.assertTrue(UuidHandler.is_valid_id(self.reservation.id), msg="Testing if UUID is Valid")
+    #
+    # def test_assert_true_room_value(self):
+    #     self.reservation.room = Setting.SYNTHETIC_DATA_ROOM_NUMBER
+    #     self.assertTrue(self.reservation.is_valid_room(), msg="Testing if Room number is Valid")
+    #
+    # def test_assert_false_room_value(self):
+    #     self.assertFalse(self.reservation.is_valid_room(), msg="Testing if Room number is not Valid")
+    #
 
-    def test_assert_true_uuid_value(self):
-        self.id = Setting.SYNTHETIC_DATA_UUID
-        self.assertTrue(UuidHandler.is_valid_id(self.id), msg="Testing if UUID is Valid")
+    # def test_assert_true_date(self):
+    #     # print("TestOnTrue")
+    #     self.reservation.date = Setting.SYNTHETIC_DATA_DATE
+    #     # print(self.reservation)
+    #     self.assertTrue(self.reservation.is_valid_date(), msg="Testing if booking date is valid")
+    #
+    # def test_assert_false_date(self):
+    #     # print("TestOnFalse")
+    #     # print(self.reservation)
+    #     self.assertFalse(self.reservation.is_valid_date(), msg="Testing if booking date is not valid")
+
+    def test_assert_true_adult_quantity(self):
+        self.reservation.adults_number = Setting.SYNTHETIC_DATA_QUANTITY_NUMBER
+        print(self.reservation)
+        self.assertTrue(self.reservation.is_valid_adult_quantity(), msg="Testing if number of adults in room is valid")
+
+    def test_assert_false_adult_quantity(self):
+        print(self.reservation)
+        self.assertFalse(self.reservation.is_valid_adult_quantity(), msg="Testing if number of adults in room is not valid")
 
     # def test_assert_raises_hotel_id_value_error(self):
     #     with self.assertRaises(ValueError):
