@@ -2,6 +2,7 @@ from cli.MenuCustomer import MenuCustomer
 from cli.MenuDescriptor import MenuDescriptor
 from cli.MenuHotel import MenuHotel
 from cli.MenuReservation import MenuReservation
+from cli.MenuType import MenuType
 from data_handling.JsonManager import JsonManager
 from abstraction.AbstractionType import AbstractionType
 from typing import cast
@@ -23,23 +24,23 @@ class MenuHandler:
         item_branch = int(values[1])
 
         if item_root == AbstractionType.CUSTOMER.value:
-            if item_branch == MenuCustomer.CREATE.value:
+            if item_branch == MenuType.CREATE.value:
                 CustomerHandler.register_customer(True, None)
-            elif item_branch == MenuCustomer.DISPLAY.value:
+            elif item_branch == MenuType.DISPLAY.value:
                 MenuHandler.menu_dynamic_handler(AbstractionType.CUSTOMER)
             else:
                 pass
         elif item_root == AbstractionType.HOTEL.value:
-            if item_branch == MenuHotel.CREATE.value:
+            if item_branch == MenuType.CREATE.value:
                 HotelHandler.register_hotel(True, None)
-            elif item_branch == MenuHotel.DISPLAY.value:
+            elif item_branch == MenuType.DISPLAY.value:
                 MenuHandler.menu_dynamic_handler(AbstractionType.HOTEL)
             else:
                 pass
         elif item_root == AbstractionType.RESERVATION.value:
-            if item_branch == MenuReservation.CREATE.value:
+            if item_branch == MenuType.CREATE.value:
                 ReservationHandler.register_reservation()
-            elif item_branch == MenuHotel.DISPLAY.value:
+            elif item_branch == MenuType.DISPLAY.value:
                 ReservationHandler.display_cancel_reservations()
             else:
                 pass
