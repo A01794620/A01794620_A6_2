@@ -1,4 +1,5 @@
 import uuid
+from abstraction.Setting import Setting
 
 class Hotel:
 
@@ -10,12 +11,17 @@ class Hotel:
         self._id = str(uuid.uuid4())
 
     def __str__(self):
-        return (f"Hotel Details:\n"
-                f"Id      := {self.id}\n"
+        head_line = Setting.HEAD_SYMBOL * Setting.COL_WIDTH
+
+        return (head_line +
+                f"Hotel Details:\n" +
+                head_line +
+                f"ID      := {self.id}\n"
                 f"Name    := {self.name}\n"
                 f"Address := {self.address}\n"
                 f"E-mail  := {self.email}\n"
-                f"Phone   := {self.phone}\n"
+                f"Phone   := {self.phone}\n" +
+                head_line
                )
 
     @property

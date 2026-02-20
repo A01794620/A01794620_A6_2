@@ -1,10 +1,8 @@
 # # https://console-menu.readthedocs.io/en/latest/installation.html
-
 from cli.MenuHandler import MenuHandler
-from cli.ReservationHandler import ReservationHandler
+
 
 def start(name):
-    # ReservationHandler.display_reservations()
     MenuHandler.show_system_menu("Aurora Reservation System", "An Aurora Group Company")
 
 if __name__ == '__main__':

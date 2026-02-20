@@ -4,7 +4,8 @@ from cli.MenuDescriptor import MenuDescriptor
 from abstraction.Setting import Setting
 from prompt_toolkit import prompt
 from data_handling.JsonManager import JsonManager
-from consolemenu import *
+from consolemenu import PromptUtils
+from consolemenu import Screen
 
 class CustomerHandler:
 
@@ -19,7 +20,7 @@ class CustomerHandler:
         print('Customer Removal Process')
         print(f"{on_record_customer.fullname} - Client-ID: {on_record_customer.id}")
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
-        user_input = prompt(f"Please confirm the customer deletion [Y/N]:", default=f"N")
+        user_input = prompt(f"Please confirm the customer deletion [Y/N]: ", default=f"N")
 
         if user_input == "Y":
             JsonManager.delete_data(AbstractionType.CUSTOMER, on_record_customer.id)
@@ -45,7 +46,7 @@ class CustomerHandler:
 
         for index, customer_field in enumerate(MenuDescriptor.customer_fields):
 
-            default_value = "<enter a value>"
+            default_value = ""
 
             if is_new:
                 default_value = ""
@@ -57,7 +58,7 @@ class CustomerHandler:
                 elif index == 2:
                     default_value = on_record_customer.phone
                 else:
-                    default_value = "<enter a value>"
+                    default_value = ""
 
             user_input = prompt(f"Please enter customer's {customer_field}: ", default=f"{default_value}")
             data_values.append(user_input)
@@ -68,6 +69,8 @@ class CustomerHandler:
             customer_.id = on_record_customer.id
 
         JsonManager.create_data(AbstractionType.CUSTOMER, customer_)
+
+        pu.clear()
 
         if is_new:
             print(f"Customer created successfully:")

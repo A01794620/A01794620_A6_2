@@ -3,7 +3,7 @@ from cli.MenuDescriptor import MenuDescriptor
 from abstraction.Setting import Setting
 from prompt_toolkit import prompt
 from data_handling.JsonManager import JsonManager
-from consolemenu import *
+from consolemenu import PromptUtils
 from abstraction.AbstractionType import AbstractionType
 from consolemenu import SelectionMenu
 from typing import cast
@@ -60,6 +60,7 @@ class ReservationHandler:
         print(reservation)
 
         JsonManager.create_data(AbstractionType.RESERVATION, reservation)
+        pu.clear()
         print(f"Reservation created successfully:")
         print(f"New Reservation-ID: {reservation.id}")
         pu.enter_to_continue()
@@ -100,7 +101,7 @@ class ReservationHandler:
 
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
 
-        user_input = prompt(f"Enter [Y] for Delete the Reservation or [N] to cancel the deletion.", default="N")
+        user_input = prompt(f"Enter [Y] for Delete the Reservation or [N] to cancel the deletion. ", default="N")
         pu.clear()
 
         if user_input == "Y":

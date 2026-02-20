@@ -20,5 +20,5 @@ class MenuDescriptor:
     ]
 
     customer_fields = [ 'Full Name', 'E-mail', 'Phone']
-    hotel_fields = ['Hotel Name', 'Address', 'E-mail', 'Phone']
-    reservation_fields = ['Room Number', 'Number of Adults', 'Number of Children',  'Reservation Date']
+    hotel_fields = ['Name', 'Address', 'E-mail', 'Phone']
+    reservation_fields = ['Room Number', 'Number of Adults', 'Number of Children',  'Date']

@@ -1,7 +1,6 @@
 from pathlib import Path
 import json
 import os
-
 from abstraction.AbstractionType import AbstractionType
 from abstraction.Customer import Customer
 from abstraction.Hotel import Hotel
@@ -83,8 +82,8 @@ class JsonManager:
         except FileNotFoundError as FileNFE:
             print(FileNFE)
             return False
-        except json.JSONDecodeError as JSONDE:
-            print(JSONDE)
+        except json.JSONDecodeError as JSONMODEL:
+            print(JSONMODEL)
             return False
 
     @staticmethod
@@ -93,14 +92,14 @@ class JsonManager:
 
         try:
             if os.path.exists(full_path):
-                print("Removing " + full_path + " with no mercy.")
+                print("Removing " + full_path + " file.")
                 os.remove(full_path)
             else:
                 print("The file " + full_path + " does not exist.")
         except FileNotFoundError:
             print(f"Error: The file '{full_path}' does not exist.")
         except PermissionError:
-            print(f"Error: Permission denied to delete the file '{full_path}'. Ensure the file is not open or read-only.")
+            print(f"Error: Permission denied to delete the file '{full_path}'.\nEnsure the file is not open or read-only.")
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
 
@@ -119,7 +118,7 @@ class JsonManager:
             err_to_print = f"File was not found:= {file_path}."
             return data
         except json.JSONDecodeError:
-            err_to_print = ("Error: Could not decode JSON from the file. " +
+            err_to_print = ("Error: Could not decode JSON from the file.\n" +
                             "Check for valid JSON syntax.")
             return data
 

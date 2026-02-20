@@ -1,14 +1,16 @@
-
 from cli.MenuDescriptor import MenuDescriptor
 from cli.MenuType import MenuType
 from data_handling.JsonManager import JsonManager
 from abstraction.AbstractionType import AbstractionType
 from typing import cast
 from cli.CustomerHandler import CustomerHandler
-from consolemenu import *
-from consolemenu.items import *
+from consolemenu import ConsoleMenu
+from consolemenu.items import FunctionItem
+from consolemenu.items import SubmenuItem
 from cli.HotelHandler import HotelHandler
 from cli.ReservationHandler import ReservationHandler
+from consolemenu import Screen
+from consolemenu import PromptUtils
 
 class MenuHandler:
 

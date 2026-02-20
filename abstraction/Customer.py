@@ -1,4 +1,5 @@
 import uuid
+from abstraction.Setting import Setting
 
 class Customer:
 
@@ -9,11 +10,15 @@ class Customer:
         self.phone = phone
 
     def __str__(self):
-        return (f"Customer Details:\n"
-                f"Id := {self._id}\n"
+        head_line = Setting.HEAD_SYMBOL * Setting.COL_WIDTH
+        return (head_line +
+                f"Customer Details:\n" +
+                head_line +
+                f"ID := {self._id}\n"
                 f"Name := {self._fullname}\n"
                 f"E-mail := {self._email}\n"
-                f"Phone := {self._phone}"
+                f"Phone := {self._phone}\n" +
+                head_line
                )
 
     @property
@@ -23,7 +28,7 @@ class Customer:
     @id.setter
     def id(self, value):
         if not value:
-            raise ValueError("Id cannot be empty")
+            raise ValueError("ID cannot be empty")
         self._id = value
 
     @property
@@ -43,7 +48,7 @@ class Customer:
     @email.setter
     def email(self, value):
         if not value:
-            raise ValueError("Email cannot be empty")
+            raise ValueError("E-mail cannot be empty")
         self._email = value
 
     @property

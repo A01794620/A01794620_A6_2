@@ -4,7 +4,8 @@ from cli.MenuDescriptor import MenuDescriptor
 from abstraction.Setting import Setting
 from prompt_toolkit import prompt
 from data_handling.JsonManager import JsonManager
-from consolemenu import *
+from consolemenu import PromptUtils
+from consolemenu import Screen
 
 class HotelHandler:
 
@@ -19,7 +20,8 @@ class HotelHandler:
         print('Hotel Removal Process')
         print(f"{on_record_hotel.name} - Hotel-ID: {on_record_hotel.id}")
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
-        user_input = prompt(f"Please confirm the Hotel deletion [Y/N]:", default=f"N")
+        user_input = prompt(f"Please confirm the Hotel deletion [Y/N]: ", default=f"N")
+        pu.clear()
 
         if user_input == "Y":
             JsonManager.delete_data(AbstractionType.HOTEL, on_record_hotel.id)
@@ -47,7 +49,7 @@ class HotelHandler:
 
         for index, hotel_field in enumerate(MenuDescriptor.hotel_fields):
 
-            default_value = "<enter a value>"
+            default_value = ""
 
             if is_new:
                 default_value = ""
@@ -62,7 +64,7 @@ class HotelHandler:
                 elif index == 3:
                     default_value = on_record_hotel.phone
                 else:
-                    default_value = "<enter a value>"
+                    default_value = ""
 
             user_input = prompt(f"Please enter hotel's {hotel_field}: ", default=f"{default_value}")
             data_values.append(user_input)
@@ -74,6 +76,8 @@ class HotelHandler:
             hotel_.id = on_record_hotel.id
 
         JsonManager.create_data(AbstractionType.HOTEL, hotel_)
+
+        pu.clear()
 
         if is_new:
             print(f"Hotel created successfully:")

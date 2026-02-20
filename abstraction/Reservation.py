@@ -1,5 +1,6 @@
 import datetime
 import uuid
+from abstraction.Setting import Setting
 
 class Reservation:
 
@@ -14,12 +15,16 @@ class Reservation:
         self._registration_date = datetime.datetime.now()
 
     def __str__(self):
-        return (f"Reservation Details:\n"
-                f"Id          := {self._id}\n"
-                f"Hotel-Id    := {self._hotel_id}\n"
+        head_line = Setting.HEAD_SYMBOL * Setting.COL_WIDTH
+
+        return (head_line +
+                f"Reservation Details:\n" +
+                head_line +
+                f"ID          := {self._id}\n"
+                f"Hotel-ID    := {self._hotel_id}\n"
                 f"Room        := {self._room}\n"
-                f"Customer-Id := {self._customer_id}\n"
-                f"Adults #    := {self._adults_number}\n"
+                f"Customer-ID := {self._customer_id}\n"
+                f"Adults   #  := {self._adults_number}\n"
                 f"Children #  := {self._children_number}\n"
                 f"Date        := {self._date}\n"
                 f"Reg-Date    := {self._registration_date}\n"
@@ -32,7 +37,7 @@ class Reservation:
     @id.setter
     def id(self, value):
         if not value:
-            raise ValueError("Id cannot be empty")
+            raise ValueError("ID cannot be empty")
         self._id = value
 
 
@@ -97,5 +102,5 @@ class Reservation:
     @children_number.setter
     def children_number(self, value):
         if not value:
-            raise ValueError("Adults Number cannot be empty")
+            raise ValueError("Children Number cannot be empty")
         self._children_number = value
