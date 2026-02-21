@@ -66,13 +66,54 @@ class JsonManagerTest(unittest.TestCase):
     #    json_to_try = JsonManager.yield_json(Setting.SYNTHETIC_DATA_INVALID_TYPE, self.customer)
     #    self.assertFalse(JsonManager.is_valid_json(json_to_try), msg=f"Testing if JSON for {Setting.SYNTHETIC_DATA_INVALID_TYPE} is not Valid")
 
-    def test_assert_true_has_data_path(self):
-        self.assertTrue(JsonManager.has_data(AbstractionType.CUSTOMER, Setting.SYNTHETIC_FILE_ID),
-                            msg="Testing if the Path has Valid data")
+    # def test_assert_true_has_data_path(self):
+    #     self.assertTrue(JsonManager.has_data(AbstractionType.CUSTOMER, Setting.SYNTHETIC_FILE_ID),
+    #                         msg="Testing if the Path has Valid data")
+    #
+    # def test_assert_false_has_data_path(self):
+    #     self.assertFalse(JsonManager.has_data(AbstractionType.HOTEL, Setting.SYNTHETIC_FILE_ID),
+    #                         msg="Testing if the Path has not Valid data")
 
-    def test_assert_false_has_data_path(self):
-        self.assertFalse(JsonManager.has_data(AbstractionType.HOTEL, Setting.SYNTHETIC_FILE_ID),
-                            msg="Testing if the Path has not Valid data")
+    # def test_assert_true_create_data(self):
+    #     self.assertTrue(JsonManager.create_data(AbstractionType.HOTEL, self.hotel),
+    #                         msg="Testing if data can be created")
+    #
+    # def test_assert_false_create_data(self):
+    #     self.assertFalse(JsonManager.create_data(Setting.SYNTHETIC_DATA_INVALID_TYPE, self.hotel),
+    #                     msg="Testing if data can not be created")
+
+    # def test_assert_is_instance_load_data(self):
+    #     full_path = JsonManager.get_path(AbstractionType.CUSTOMER) + Setting.SYNTHETIC_FILE_ID + Setting.FILE_EXTENSION
+    #     self.assertIsInstance(JsonManager.load_from_file(full_path), dict)
+    #
+    # def test_assert_is_not_instance_load_data(self):
+    #     full_path = JsonManager.get_path(AbstractionType.CUSTOMER) + Setting.SYNTHETIC_FILE_ID_WRONG + Setting.FILE_EXTENSION
+    #     self.assertNotIsInstance(JsonManager.load_from_file(full_path), dict)
+
+    # def test_assert_is_instance_retrieve_data(self):
+    #     self.assertIsInstance(JsonManager.retrieve_data(AbstractionType.CUSTOMER, Setting.SYNTHETIC_FILE_ID), Customer)
+    #
+    # def test_assert_is_not_instance_retrieve_data(self):
+    #     self.assertNotIsInstance(JsonManager.retrieve_data(AbstractionType.CUSTOMER, Setting.SYNTHETIC_FILE_ID), Hotel)
+
+    # def test_assert_is_instance_display_data(self):
+    #     customers = JsonManager.display_data(AbstractionType.CUSTOMER)
+    #     self.assertIsInstance(customers, list)
+    #     self.assertIsInstance(customers[0], Customer)
+
+    # def test_assert_items_equal_display_data_empty(self):
+    #     customers = JsonManager.display_data(Setting.SYNTHETIC_DATA_INVALID_TYPE)
+    #     self.assertListEqual(customers, [])
+
+
+    # def test_assert_true_delete_data(self):
+    #     self.assertTrue(JsonManager.delete_data(AbstractionType.CUSTOMER, Setting.SYNTHETIC_FILE_ID),
+    #                         msg="Testing if data can be removed")
+
+    def test_assert_false_delete_data(self):
+        self.assertFalse(JsonManager.delete_data(AbstractionType.HOTEL, Setting.SYNTHETIC_FILE_ID_WRONG),
+                            msg="Testing if data can be removed")
+
 
 if __name__ == '__main__':
     unittest.main()

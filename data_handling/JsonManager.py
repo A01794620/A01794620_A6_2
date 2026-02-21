@@ -112,13 +112,20 @@ class JsonManager:
 
     @staticmethod
     def create_data(data_type, data):
-
         full_path = JsonManager.get_path(data_type) + data.id + Setting.FILE_EXTENSION
         src_data = JsonManager.yield_json(data_type, data)
+
+        # print("-----------------------")
+        # print(full_path)
+        # print("-----------------------")
+
+        if Setting.NULL_VALUE in str(src_data):
+            return False
 
         try:
             with open(full_path, "w") as json_file:
                 json.dump(src_data, json_file, indent=4)
+
             return True
         except FileNotFoundError as FileNFE:
             print(FileNFE)
