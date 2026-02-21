@@ -27,3 +27,8 @@ class Setting:
     SYNTHETIC_DATA_FULLNAME = "Ronald Sandí Quesada"
     SYNTHETIC_DATA_HOTEL_NAME = "Hotel the Green Bag In"
     SYNTHETIC_DATA_ADDRESS = "Av. Vasco de Quiroga N. 3800, Col. Lomas de Santa Fe"
+    SYNTHETIC_DATA_INVALID_TYPE = 4
+
+    SYNTHETIC_FILE_ID = "d1cacc69-1516-4fd2-8bc3-cd625fe88624"
+
+    # Customer
