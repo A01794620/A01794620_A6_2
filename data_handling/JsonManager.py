@@ -93,6 +93,8 @@ class JsonManager:
     def has_data(data_type, file_id):
         full_path = JsonManager.get_path(data_type) + file_id + Setting.FILE_EXTENSION
 
+        # print(full_path)
+
         try:
             if os.path.exists(full_path):
                 return True
@@ -159,6 +161,8 @@ class JsonManager:
         full_path = JsonManager.get_path(data_type) + id_ + Setting.FILE_EXTENSION
         obj_item = None
         data_src = ""
+
+        # print(full_path)
 
         if JsonManager.has_data(data_type, id_):
             data_src = JsonManager.load_from_file(full_path)
@@ -259,7 +263,7 @@ class JsonManager:
                 os.remove(full_path)
                 return True
             else:
-                print("The file " + full_path + " does not exist.")
+                #print("The file " + full_path + " does not exist.")
                 return False
         except FileNotFoundError:
             print(f"Error: The file '{full_path}' does not exist.")
