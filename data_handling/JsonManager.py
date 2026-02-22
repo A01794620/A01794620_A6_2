@@ -15,11 +15,11 @@
 import os
 import json
 from pathlib import Path
-from abstraction.Hotel import Hotel
-from setting.Setting import Setting
 from consolemenu import PromptUtils
 from consolemenu.screen import Screen
-
+# Local system imports
+from setting.Setting import Setting
+from abstraction.Hotel import Hotel
 from abstraction.Customer import Customer
 from abstraction.Reservation import Reservation
 from abstraction.AbstractionType import AbstractionType
@@ -48,8 +48,8 @@ class JsonManager:
 
         if str(file_path).strip() == "":
             return False
-        else:
-            return Path(file_path).is_dir()
+
+        return Path(file_path).is_dir()
 
     @staticmethod
     def is_valid_json(src_json):
@@ -105,8 +105,8 @@ class JsonManager:
 
         if catalog_path!="":
             return full_path
-        else:
-            return catalog_path
+
+        return catalog_path
 
     @staticmethod
     def yield_json(data_type, data):
@@ -169,10 +169,11 @@ class JsonManager:
         """
         full_path = JsonManager.get_path(data_type) + file_id + Setting.FILE_EXTENSION
         try:
-            if os.path.exists(full_path):
-                return True
-            else:
-                return False
+            return os.path.exists(full_path)
+            # if os.path.exists(full_path):
+            #     return True
+            # else:
+            #     return False
         except FileNotFoundError:
             print(f"Error: The file '{full_path}' does not exist.")
             return False
@@ -181,9 +182,9 @@ class JsonManager:
                 f"Error: Permission denied to delete the file '{full_path}'. "
                 "Ensure the file is not open or read-only.")
             return False
-        except Exception as e:
-            print(f"An unexpected error occurred: {e}")
-            return False
+        # except Exception as e:
+        #     print(f"An unexpected error occurred: {e}")
+        #     return False
 
 
     @staticmethod
@@ -205,15 +206,15 @@ class JsonManager:
             return False
 
         try:
-            with open(full_path, "w") as json_file:
+            with open(full_path, "w", encoding="utf-8") as json_file:
                 json.dump(src_data, json_file, indent=4)
 
             return True
-        except FileNotFoundError as FileNfe:
-            print(FileNfe)
+        except FileNotFoundError as file_not_f:
+            print(file_not_f)
             return False
-        except json.JSONDecodeError as JSONMODEL:
-            print(JSONMODEL)
+        except json.JSONDecodeError as json_model_err:
+            print(json_model_err)
             return False
 
     @staticmethod
@@ -228,7 +229,7 @@ class JsonManager:
                  on where empty data means that the file reding was not fruitful.
         """
         data = ""
-        err_to_print = ""
+        # err_to_print = ""
 
         try:
             with open(file_path, 'r', encoding="utf-8") as file:
@@ -238,10 +239,12 @@ class JsonManager:
 
         except FileNotFoundError:
             err_to_print = f"File was not found:= {file_path}."
+            print(err_to_print)
             return data
         except json.JSONDecodeError:
             err_to_print = ("Error: Could not decode JSON from the file.\n" +
                             "Check for valid JSON syntax.")
+            print(err_to_print)
             return data
 
     @staticmethod
@@ -292,6 +295,7 @@ class JsonManager:
 
         return obj_item
 
+    # pylint: disable=R0914
     @staticmethod
     def display_data(data_type):
         """
@@ -381,8 +385,8 @@ class JsonManager:
             if os.path.exists(full_path):
                 os.remove(full_path)
                 return True
-            else:
-                return False
+
+            return False
         except FileNotFoundError:
             print(f"Error: The file '{full_path}' does not exist.")
             return False
@@ -390,6 +394,6 @@ class JsonManager:
             print(f"Error: Permission denied to delete the file '{full_path}'.\n"
                   f"Ensure the file is not open or read-only.")
             return False
-        except Exception as e:
-            print(f"An unexpected error occurred: {e}")
-            return False
+        # except Exception as e:
+        #     print(f"An unexpected error occurred: {e}")
+        #     return False
