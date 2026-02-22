@@ -17,34 +17,44 @@ from setting.Setting import Setting
 from setting.Validator import Validator
 from setting.UuidHandler import UuidHandler
 
+
 # pylint: disable=too-many-instance-attributes
 # Disabled R0902: Too many instance attributes
 class Reservation:
     """
     Reservation.
-    This entity represents the action executed by a Customer into a Hotel.
-    A reservation warrantee that one customer can stay in a room in a specific hotel.
-    Due to the time constraint, this system on it version (1.0.0) only supports
-    reservation registration and cancel registrations.
-    Nevertheless, in a full-fledged complaint system the availability of a room in time
-    and number of occupants might be checked before warranty reservation.
-    Also, reservation in a full system might include price, and application of vanity points,
-    bonus, payment media and specific amenities accommodations to warrantee customers
-    satisfaction.
-    All those important points are voided for time restrictions on this deliverable.
+    This entity represents the action executed by a Customer
+    into a Hotel. A reservation warrantee that one customer
+    can stay in a room in a specific hotel.
+    Due to the time constraint, this system on it version
+    (1.0.0) only supports reservation registration and cancel
+    registrations.
+    Nevertheless, in a full-fledged complaint system the
+    availability of a room in time and number of occupants
+    might be checked before warranty reservation.
+    Also, reservation in a full system might include
+    price, and application of vanity points, bonus, payment
+    media and specific amenities accommodations to warrantee
+    customers satisfaction.
+    All those important points are voided for time restrictions
+    on this deliverable.
     """
 
     # pylint: disable=R0913, R0917
-    def __init__(self, hotel_id=None, customer_id=None, room=None, adults_number=None,
+    def __init__(self, hotel_id=None, customer_id=None,
+                 room=None, adults_number=None,
                  children_number=None,  date=None):
         self._id = UuidHandler.get_next_id()
         self._registration_date = datetime.datetime.now()
 
         self.hotel_id = Setting.NULL_VALUE if hotel_id is None else hotel_id
-        self.customer_id = Setting.NULL_VALUE if customer_id is None else customer_id
+        self.customer_id = Setting.NULL_VALUE \
+            if customer_id is None else customer_id
         self.room = Setting.NULL_VALUE if room is None else room
-        self.adults_number = Setting.NULL_NUMBER if adults_number is None else adults_number
-        self.children_number = Setting.NULL_NUMBER if children_number is None else children_number
+        self.adults_number = Setting.NULL_NUMBER \
+            if adults_number is None else adults_number
+        self.children_number = Setting.NULL_NUMBER \
+            if children_number is None else children_number
         self.date = Setting.NULL_VALUE if date is None else date
 
     def __str__(self):
@@ -133,7 +143,7 @@ class Reservation:
         Returns:
             bool: adult quantity validation.
         """
-        return Reservation.is_valid_quantity(self.adults_number,1)
+        return Reservation.is_valid_quantity(self.adults_number, 1)
 
     def is_valid_children_quantity(self):
         """
@@ -144,8 +154,8 @@ class Reservation:
         Returns:
             bool: children quantity validation.
         """
-        return Reservation.is_valid_quantity(self.children_number,0)
-
+        return Reservation.is_valid_quantity(self.children_number,
+                                             0)
 
     @staticmethod
     def is_valid_quantity(quantity, min_quantity):
@@ -154,10 +164,11 @@ class Reservation:
         for other quantities checks.
         Args:
             quantity (int): quantity to be checked.
-            min_quantity (int): minimum quantity value accepted on the validation case.
+            min_quantity (int): minimum quantity value accepted on
+                                the validation case.
         Returns:
-            bool: Truth if the evaluation is right; a neutral or positive quantity
-            depending on the parameters.
+            bool: Truth if the evaluation is right; a neutral or
+            positive quantity depending on the parameters.
         """
         if Validator.is_valid_quantity(quantity):
             return quantity >= min_quantity
@@ -175,7 +186,6 @@ class Reservation:
         if not value:
             raise ValueError("ID cannot be empty")
         self._id = value
-
 
     @property
     def hotel_id(self):
@@ -227,7 +237,7 @@ class Reservation:
     def date(self, value):
         if not value:
             raise ValueError("Date cannot be empty")
-        self._date= value
+        self._date = value
 
     @property
     def registration_date(self):
@@ -248,7 +258,7 @@ class Reservation:
         if not Validator.is_valid_quantity(value):
             raise ValueError("Adults Number must be a digit")
 
-        self._adults_number= value
+        self._adults_number = value
 
     @property
     def children_number(self):

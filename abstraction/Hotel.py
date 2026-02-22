@@ -16,6 +16,7 @@ from setting.Setting import Setting
 from setting.UuidHandler import UuidHandler
 from setting.Validator import Validator
 
+
 class Hotel:
     """
     Hotel:
@@ -34,16 +35,16 @@ class Hotel:
     def __str__(self):
         head_line = Setting.HEAD_SYMBOL * Setting.COL_WIDTH
 
-        return (head_line + '\n' +
+        return (
+                head_line + '\n' +
                 "Hotel Details:\n" +
-                head_line  + '\n' +
+                head_line + '\n' +
                 f"ID      := {self.id}\n"
                 f"Name    := {self.name}\n"
                 f"Address := {self.address}\n"
                 f"E-mail  := {self.email}\n"
                 f"Phone   := {self.phone}\n" +
-                head_line
-               )
+                head_line)
 
     def is_valid_id(self):
         """
@@ -57,13 +58,16 @@ class Hotel:
 
     def is_valid_name(self):
         """
-        Checks if the hotel’s name holds the minimum length and spaces requirements.
+        Checks if the hotel’s name holds the minimum length and
+        spaces requirements.
         Args:
             (void): It checks in the same object.
         Returns:
             bool: evaluation of the correctness of the Hotel's name.
         """
-        return Validator.is_valid_subject_name(self.name, False, False)
+        return Validator.is_valid_subject_name(self.name,
+                                               False,
+                                               False)
 
     def is_valid_address(self):
         """
@@ -75,17 +79,21 @@ class Hotel:
             It does not do a formal verification against any
             Address verification system (AVS).
         """
-        return Validator.is_valid_subject_name(self.address, False, is_address=True)
+        return Validator.is_valid_subject_name(self.address,
+                                               False, is_address=True)
 
     def is_valid_phone(self):
         """
-        It evaluates if the actual set phone is a valid string or not as per its structure.
+        It evaluates if the actual set phone is a valid string or not
+        as per its structure.
         Args:
             (void): It checks in the same object.
         Returns:
-            bool: Use the evaluation class to discover whether the phone is valid or not.
-                  Uses Google's Phone Number library, originally written in Java Language.
-                  It does not do any PBX (Private Branch Exchange) check again a real phone call.
+            bool: Use the evaluation class to discover whether the phone
+                  is valid or not. Uses Google's Phone Number library,
+                  originally written in Java Language. It does not do
+                  any PBX (Private Branch Exchange) check again a real
+                  phone call.
         """
         return Validator.is_valid_phone_number(self.phone)
 
@@ -154,7 +162,7 @@ class Hotel:
     def email(self, value):
         if not value:
             raise ValueError("E-mail cannot be empty")
-        self._email= value
+        self._email = value
 
     @property
     def phone(self):

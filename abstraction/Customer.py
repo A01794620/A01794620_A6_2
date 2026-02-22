@@ -16,6 +16,7 @@ from setting.Setting import Setting
 from setting.Validator import Validator
 from setting.UuidHandler import UuidHandler
 
+
 class Customer:
     """
     Customer:
@@ -34,15 +35,15 @@ class Customer:
 
     def __str__(self):
         head_line = Setting.HEAD_SYMBOL * Setting.COL_WIDTH
-        return (head_line + '\n' +
+        return (
+                head_line + '\n' +
                 "Customer Details:\n" +
                 head_line + '\n' +
                 f"ID      := {self._id}\n"
                 f"Name    := {self._fullname}\n"
                 f"E-mail  := {self._email}\n"
                 f"Phone   := {self._phone}\n" +
-                head_line
-               )
+                head_line)
 
     def is_valid_id(self):
         """
@@ -87,7 +88,8 @@ class Customer:
             bool: evaluation of the correctness of the fullname.
         """
         return Validator.is_valid_subject_name(self.fullname,
-                                               might_have_space=True, is_address=False)
+                                               might_have_space=True,
+                                               is_address=False)
 
     @property
     def id(self):

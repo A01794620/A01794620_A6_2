@@ -14,8 +14,8 @@
 """
 from enum import Enum
 
-class AbstractionType(Enum):
 
+class AbstractionType(Enum):
     """
     AbstractionType:
     This is an enumeration class that helps to iterate though
@@ -23,5 +23,5 @@ class AbstractionType(Enum):
     These three abstractions are the core of the whole system.
     """
     CUSTOMER = 0
-    HOTEL= 1
+    HOTEL = 1
     RESERVATION = 2
