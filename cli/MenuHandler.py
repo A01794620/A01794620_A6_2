@@ -23,7 +23,8 @@ class MenuHandler:
         main_menu = ConsoleMenu(title, sub_title)
 
         for index, sub_branch in enumerate(MenuDescriptor.root_menu):
-            submenu_item = ConsoleMenu(Setting.SYSTEM_CANONICAL + '\n' + Setting.SYSTEM_MISSION,f"{sub_branch} Management")
+            submenu_item = ConsoleMenu(Setting.SYSTEM_CANONICAL + '\n' + Setting.SYSTEM_MISSION,
+                                       f"{sub_branch} Management")
             submenu_item_root = SubmenuItem(f"{sub_branch} Operations", submenu=submenu_item)
 
             if index == AbstractionType.CUSTOMER.value:
@@ -40,14 +41,14 @@ class MenuHandler:
                     function_item = FunctionItem(hotel_branch, MenuHandler.item_handler, args)
                     submenu_item.append_item(function_item)
 
-                submenu_item.exit_item.text = f"Return to {Setting.SYSTEM_MAIN_MENU}"
+                submenu_item.exit_item.text = f"Return to {Setting.SYSTEM_MAIN_MENU} {Setting.OPEN_TAG * 2}"
 
             elif index == AbstractionType.RESERVATION.value:
                 for index_item, reservation_branch in enumerate(MenuDescriptor.reservation_menu):
                     args = [str(index) + "-" + str(index_item)]
                     function_item = FunctionItem(reservation_branch, MenuHandler.item_handler, args)
                     submenu_item.append_item(function_item)
-                submenu_item.exit_item.text = f"Return to {Setting.SYSTEM_MAIN_MENU}"
+                submenu_item.exit_item.text = f"Return to {Setting.SYSTEM_MAIN_MENU} {Setting.OPEN_TAG * 2}"
 
             submenu_item_root.set_menu(main_menu)
             main_menu.append_item(submenu_item_root)

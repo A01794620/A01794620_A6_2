@@ -109,28 +109,27 @@ class CustomerHandler:
 
         # customer_ = Customer(data_values[0], data_values[1], data_values[2])
 
+        pu.clear()
 
         if not is_new:
             customer_.id = on_record_customer.id
 
-        JsonManager.create_data(AbstractionType.CUSTOMER, customer_)
-
-        pu.clear()
         action = ""
-        if is_new:
-            action = "created"
-            #print(f"Customer  successfully:")
-            # print(f"{customer_.fullname} - New Client-ID: {customer_.id}")
-            #print(customer_)
-        else:
-            action = "updated"
-            #print(f"Customer updated successfully:")
-            # print(f"{customer_.fullname} - Client-ID: {customer_.id}")
-            # print(customer_)
 
-        print(f"Customer {action} successfully:")
-        print(customer_)
+        if is_new:
+            action = "Creation"
+        else:
+            action = "Update"
+
+        if do_operation:
+            JsonManager.create_data(AbstractionType.CUSTOMER, customer_)
+            print(f"Customer {action} Successful.")
+            print(customer_)
+        else:
+            print(f"Customer {action} Cancelled.")
+
         pu.enter_to_continue()
+
 
     @staticmethod
     def handle_customer(customer):

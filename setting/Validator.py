@@ -22,9 +22,12 @@ class Validator:
 
     @staticmethod
     def is_valid_quantity(src_str):
+        #print("AA")
         if isinstance(src_str, int):
+            #print("BB")
             return True
         else:
+            #print("CC")
             return False
 
     @staticmethod
@@ -55,7 +58,6 @@ class Validator:
 
     @staticmethod
     def is_valid_subject_name(src_str, might_have_space=True, is_address=False):
-
         if src_str is None:
             return False
 

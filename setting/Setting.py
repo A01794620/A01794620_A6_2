@@ -17,7 +17,9 @@ class Setting:
     NULL_DATE_VALUE = "1970-01-01"
     DATE_FORMAT = "%m-%d-%Y"
     EMAIL_PATTERN = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    ADDRESS_PATTERN = r'^[a-zA-Z0-9\s.,]+,\s*[a-zA-Z0-9\s.,]+$'
+    ADDRESS_PATTERN = r"^\s*\S+(\s+\S+){0,19}\s*$"
+    #r'^[a-zA-Z0-9.,]{5,10}$'
+    #r'^[a-zA-Z0-9\s.,]+,\s*[a-zA-Z0-9\s.,]+$'
 
     SYNTHETIC_DATA_PHONE_NUMBER = "+506 88785054"
     SYNTHETIC_DATA_UUID = "afb4b554-6c0c-4c70-873c-9de1321bb55d"

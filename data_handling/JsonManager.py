@@ -6,6 +6,9 @@ from abstraction.Customer import Customer
 from abstraction.Hotel import Hotel
 from abstraction.Reservation import Reservation
 from setting.Setting import Setting
+from consolemenu import PromptUtils
+from consolemenu.screen import Screen
+from prompt_toolkit import prompt
 
 class JsonManager:
     @staticmethod
@@ -198,15 +201,21 @@ class JsonManager:
     @staticmethod
     def display_data(data_type):
 
+        pu = PromptUtils(Screen())
+        pu.clear()
+
+
         obj_container = []
         obj_line = None
         full_path = Path(JsonManager.get_path(data_type))
         json_files = list(full_path.glob('**/*' + Setting.FILE_EXTENSION))
 
+
         for each_file in json_files:
             obj_line = None
 
             if data_type == AbstractionType.CUSTOMER:
+
                 data_src = JsonManager.load_from_file(each_file)
 
                 if isinstance(data_src, dict):
@@ -220,6 +229,7 @@ class JsonManager:
                 else:
                     pass
             elif data_type == AbstractionType.HOTEL:
+
                 data_src = JsonManager.load_from_file(each_file)
 
                 if isinstance(data_src, dict):
@@ -234,9 +244,11 @@ class JsonManager:
                     obj_container.append(obj_line)
 
             elif data_type == AbstractionType.RESERVATION:
+
                 data_src = JsonManager.load_from_file(each_file)
 
                 if isinstance(data_src, dict):
+
                     id_ = str(data_src['id'])
                     customer_id = str(data_src['customer_id'])
                     hotel_id = str(data_src['hotel_id'])
@@ -245,7 +257,19 @@ class JsonManager:
                     children_number = str(data_src['children_number'])
                     date = str(data_src['date'])
                     registration_date = str(data_src['registration_date'])
-                    obj_line = Reservation(hotel_id, customer_id, room, adults_number, children_number, date)
+
+                    # print(f"id {id_}")
+                    # print(f"hotel_id {hotel_id}")
+                    # print(f"customer_id {customer_id}")
+                    # print(f"room {room}")
+                    # print(f"adults_number {adults_number}")
+                    # print(f"children_number {children_number}")
+                    # print(f"date {date}")
+                    # print(f"registration_date {registration_date}")
+
+                    obj_line = Reservation(hotel_id, customer_id, room, int(adults_number), int(children_number), date)
+                    #pu.enter_to_continue()
+
                     obj_line.id = id_
                     obj_container.append(obj_line)
                 else:

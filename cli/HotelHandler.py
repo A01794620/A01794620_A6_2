@@ -47,44 +47,95 @@ class HotelHandler:
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
         data_values = []
 
+        hotel_ = Hotel()
+        do_operation = True
+
+
         for index, hotel_field in enumerate(MenuDescriptor.hotel_fields):
-
-            default_value = ""
-
-            if is_new:
+            if do_operation:
                 default_value = ""
-            else:
 
-                if index == 0:
-                    default_value = on_record_hotel.name
-                elif index == 1:
-                    default_value = on_record_hotel.address
-                elif index == 2:
-                    default_value = on_record_hotel.email
-                elif index == 3:
-                    default_value = on_record_hotel.phone
-                else:
+                if is_new:
                     default_value = ""
+                else:
+                    if index == 0:
+                        default_value = on_record_hotel.name
+                    elif index == 1:
+                        default_value = on_record_hotel.address
+                    elif index == 2:
+                        default_value = on_record_hotel.email
+                    elif index == 3:
+                        default_value = on_record_hotel.phone
+                    else:
+                        default_value = ""
 
-            user_input = prompt(f"Please enter hotel's {hotel_field}: ", default=f"{default_value}")
-            data_values.append(user_input)
+                # Validation until
+                user_input = ""
+                is_good_value = False
+                while do_operation and not is_good_value:
+                ########################################
+                    user_input = prompt(f"Please enter hotel's {hotel_field}: ", default=f"{default_value}")
+
+                    if len(user_input) > 0:
+                        default_value = user_input
+
+                        if user_input == Setting.CANCEL_OPERATION_PHRASE:
+                            do_operation = False
+                        else:
+                            # print(f"Index:={index}")
+                            if index == 0:
+                                hotel_.name = user_input
+                                is_good_value = hotel_.is_valid_name()
+                            elif index == 1:
+                                hotel_.address = user_input
+                                is_good_value = hotel_.is_valid_address()
+                            elif index == 2:
+                                hotel_.email = user_input
+                                is_good_value = hotel_.is_valid_email()
+                                pu.clear()
+                            elif index == 3:
+                                hotel_.phone = user_input
+                                is_good_value = hotel_.is_valid_phone()
+                                pu.clear()
+                    else:
+                        pass
+
+                    if not is_good_value:
+                        # pu.clear()
+                        print("Invalid Field. Please enter a valid value.\n\n" +
+                              "Or type the phrase:\n\n" +
+                              f"\t{Setting.OPEN_TAG} {Setting.CANCEL_OPERATION_PHRASE} "
+                              f"{Setting.CLOSE_TAG}\n\nto go back to previous menu.\n")
+
+                ######################################
+
+                # user_input = prompt(f"Please enter hotel's {hotel_field}: ", default=f"{default_value}")
+                data_values.append(user_input)
 
 
-        hotel_ = Hotel(data_values[0], data_values[1], data_values[2], data_values[3])
+        # hotel_ = Hotel(data_values[0], data_values[1], data_values[2], data_values[3])
+
+        # pu.enter_to_continue()
+        # return
+
+        pu.clear()
 
         if not is_new:
             hotel_.id = on_record_hotel.id
 
-        JsonManager.create_data(AbstractionType.HOTEL, hotel_)
-
-        pu.clear()
+        action = ""
 
         if is_new:
-            print(f"Hotel created successfully:")
-            print(f"{hotel_.name} - New Hotel-ID: {hotel_.id}")
+            action = "Creation"
         else:
-            print(f"Hotel updated successfully:")
-            print(f"{hotel_.name} - Hotel-ID: {hotel_.id}")
+            action = "Update"
+
+        if do_operation:
+            JsonManager.create_data(AbstractionType.HOTEL, hotel_)
+            print(f"Hotel {action} Successful.")
+            print(hotel_)
+        else:
+            print(f"Hotel {action} Cancelled.")
 
         pu.enter_to_continue()
 

@@ -58,18 +58,23 @@ class Reservation:
         return Reservation.is_valid_quantity(self.adults_number,1)
 
     def is_valid_children_quantity(self):
+        #print("XX")
         return Reservation.is_valid_quantity(self.children_number,0)
 
 
     @staticmethod
     def is_valid_quantity(quantity, min_quantity):
-
+        #print("F1")
         if Validator.is_valid_quantity(quantity):
+            #print("F2")
             if quantity >= min_quantity:
+                #print("F3")
                 return True
             else:
+                #print("F4")
                 return False
         else:
+            #print("F5")
             return False
 
     @property
@@ -133,8 +138,9 @@ class Reservation:
 
     @adults_number.setter
     def adults_number(self, value):
-        if not value:
-            raise ValueError("Adults Number cannot be empty")
+        if not Validator.is_valid_quantity(value):
+            raise ValueError("Adults Number must be a digit")
+
         self._adults_number= value
 
     @property
@@ -143,6 +149,8 @@ class Reservation:
 
     @children_number.setter
     def children_number(self, value):
-        if not value:
-            raise ValueError("Children Number cannot be empty")
+
+        if not Validator.is_valid_quantity(value):
+            raise ValueError("Children Number must be a digit")
+
         self._children_number = value

@@ -30,7 +30,7 @@ class Hotel:
         return UuidHandler.is_valid_id(self.id)
 
     def is_valid_name(self):
-        return Validator.is_valid_subject_name(self.name, False)
+        return Validator.is_valid_subject_name(self.name, False, False)
 
     def is_valid_address(self):
         return Validator.is_valid_subject_name(self.address, False, is_address=True)
