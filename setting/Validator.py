@@ -56,6 +56,15 @@ class Validator:
     @staticmethod
     def is_valid_subject_name(src_str, might_have_space=True, is_address=False):
 
+        if src_str is None:
+            return False
+
+        if len(src_str)<=0:
+            return False
+
+        if src_str.strip() == '':
+            return False
+
         if might_have_space:
             if " " not in src_str.strip():
              return False

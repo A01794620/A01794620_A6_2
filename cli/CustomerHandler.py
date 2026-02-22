@@ -21,7 +21,7 @@ class CustomerHandler:
         print(f"{on_record_customer.fullname} - Client-ID: {on_record_customer.id}")
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
         user_input = prompt(f"Please confirm the customer deletion [Y/N]: ", default=f"N")
-
+        pu.clear()
         if user_input == "Y":
             JsonManager.delete_data(AbstractionType.CUSTOMER, on_record_customer.id)
             print(f"Customer deleted successfully.")
@@ -29,6 +29,10 @@ class CustomerHandler:
             print(f"Removal cancelled.")
 
         pu.enter_to_continue()
+
+    # @staticmethod pass_field_until(promp_, ):
+    # user_input = prompt(f"Please enter customer's {customer_field}: ", default=f"{default_value}")
+    #
 
     @staticmethod
     def register_customer(is_new, on_record_customer):
@@ -44,26 +48,71 @@ class CustomerHandler:
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
         data_values = []
 
+        customer_ = Customer()
+        do_operation = True
+
+
         for index, customer_field in enumerate(MenuDescriptor.customer_fields):
 
-            default_value = ""
-
-            if is_new:
+            if do_operation:
                 default_value = ""
-            else:
-                if index == 0:
-                    default_value = on_record_customer.fullname
-                elif index == 1:
-                    default_value = on_record_customer.email
-                elif index == 2:
-                    default_value = on_record_customer.phone
-                else:
+
+                if is_new:
                     default_value = ""
+                else:
+                    if index == 0:
+                        default_value = on_record_customer.fullname
+                    elif index == 1:
+                        default_value = on_record_customer.email
+                    elif index == 2:
+                        default_value = on_record_customer.phone
+                    else:
+                        default_value = ""
 
-            user_input = prompt(f"Please enter customer's {customer_field}: ", default=f"{default_value}")
-            data_values.append(user_input)
+                # Validation until
+                user_input = ""
 
-        customer_ = Customer(data_values[0], data_values[1], data_values[2])
+                if index == 0 or index == 1 or index == 2:
+
+                    is_good_value = False
+
+                    while do_operation and not is_good_value:
+
+                        user_input = prompt(f"Please enter customer's {customer_field}: ", default=f"{default_value}")
+
+                        if len(user_input)> 0:
+
+                            default_value = user_input
+
+                            if user_input == Setting.CANCEL_OPERATION_PHRASE:
+                                do_operation = False
+                            else:
+
+                                if index == 0:
+                                    customer_.fullname = user_input
+                                    is_good_value = customer_.is_valid_fullname()
+                                elif index == 1:
+                                    customer_.email = user_input
+                                    is_good_value = customer_.is_valid_email()
+                                elif index == 2:
+                                    customer_.phone = user_input
+                                    is_good_value = customer_.is_valid_phone()
+
+                                pu.clear()
+                        else:
+                            pass
+
+                        if not is_good_value:
+                            pu.clear()
+                            print("Invalid Field. Please enter a valid value.\n\n" +
+                                  "Or type the phrase:\n\n" +
+                                  f"\t{Setting.OPEN_TAG} {Setting.CANCEL_OPERATION_PHRASE } {Setting.CLOSE_TAG}\n\nto go back to previous menu.")
+                    data_values.append(user_input)
+                else:
+                    data_values.append(user_input)
+
+        # customer_ = Customer(data_values[0], data_values[1], data_values[2])
+
 
         if not is_new:
             customer_.id = on_record_customer.id
@@ -71,14 +120,20 @@ class CustomerHandler:
         JsonManager.create_data(AbstractionType.CUSTOMER, customer_)
 
         pu.clear()
-
+        action = ""
         if is_new:
-            print(f"Customer created successfully:")
-            print(f"{customer_.fullname} - New Client-ID: {customer_.id}")
+            action = "created"
+            #print(f"Customer  successfully:")
+            # print(f"{customer_.fullname} - New Client-ID: {customer_.id}")
+            #print(customer_)
         else:
-            print(f"Customer  updated successfully:")
-            print(f"{customer_.fullname} - Client-ID: {customer_.id}")
+            action = "updated"
+            #print(f"Customer updated successfully:")
+            # print(f"{customer_.fullname} - Client-ID: {customer_.id}")
+            # print(customer_)
 
+        print(f"Customer {action} successfully:")
+        print(customer_)
         pu.enter_to_continue()
 
     @staticmethod

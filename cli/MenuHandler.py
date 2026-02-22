@@ -32,7 +32,7 @@ class MenuHandler:
                     function_item = FunctionItem(customer_branch, MenuHandler.item_handler, args)
                     submenu_item.append_item(function_item)
 
-                submenu_item.exit_item.text = f"Return to {Setting.SYSTEM_MAIN_MENU}"
+                submenu_item.exit_item.text = f"Return to {Setting.SYSTEM_MAIN_MENU} {Setting.OPEN_TAG * 2}"
 
             elif index == AbstractionType.HOTEL.value:
                 for index_item, hotel_branch in enumerate(MenuDescriptor.hotel_menu):

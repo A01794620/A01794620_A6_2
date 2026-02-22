@@ -32,7 +32,7 @@ class Customer:
         return Validator.is_valid_email(self.email)
 
     def is_valid_fullname(self):
-        return Validator.is_valid_subject_name(self.fullname)
+        return Validator.is_valid_subject_name(self.fullname, might_have_space=True, is_address=False)
 
     @property
     def id(self):

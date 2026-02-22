@@ -1,7 +1,7 @@
 
 class Setting:
     SYSTEM_CANONICAL = "Aurora Reservations System"
-    SYSTEM_MAIN_MENU = "Main Menu »»"
+    SYSTEM_MAIN_MENU = "Main Menu"
     SYSTEM_MISSION = "Trustable Reservations Since 1970"
     SYSTEM_SUPPORT_EMAIL = "Tech Support: A01794620@tec.mx"
     FILE_EXTENSION = ".json"
@@ -33,5 +33,7 @@ class Setting:
     SYNTHETIC_DATA_INVALID_TYPE = 4
     # SYNTHETIC_FILE_ID = "d1cacc69-1516-4fd2-8bc3-cd625fe88624"
     # SYNTHETIC_FILE_ID_WRONG = "d1cacc69-1516-4fd2-8bc3-000000000000"
-
     SYNTHETIC_FILE_ID_CREATE = "3e3c9df2-c209-4cf7-913b-26227823f803"
+    CANCEL_OPERATION_PHRASE = "CANCEL-OPERATION"
+    OPEN_TAG ="«"
+    CLOSE_TAG ="»"
