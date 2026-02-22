@@ -30,9 +30,6 @@ class CustomerHandler:
 
         pu.enter_to_continue()
 
-    # @staticmethod pass_field_until(promp_, ):
-    # user_input = prompt(f"Please enter customer's {customer_field}: ", default=f"{default_value}")
-    #
 
     @staticmethod
     def register_customer(is_new, on_record_customer):
@@ -40,6 +37,7 @@ class CustomerHandler:
         pu.clear()
 
         print( Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
+
         if is_new:
             print('Create a new Customer')
         else:
@@ -53,7 +51,6 @@ class CustomerHandler:
 
 
         for index, customer_field in enumerate(MenuDescriptor.customer_fields):
-
             if do_operation:
                 default_value = ""
 
@@ -72,44 +69,43 @@ class CustomerHandler:
                 # Validation until
                 user_input = ""
 
-                if index == 0 or index == 1 or index == 2:
+                # if index == 0 or index == 1 or index == 2:
 
-                    is_good_value = False
+                is_good_value = False
 
-                    while do_operation and not is_good_value:
+                while do_operation and not is_good_value:
+                    user_input = prompt(f"Please enter customer's {customer_field}: ", default=f"{default_value}")
 
-                        user_input = prompt(f"Please enter customer's {customer_field}: ", default=f"{default_value}")
+                    if len(user_input)> 0:
+                        default_value = user_input
 
-                        if len(user_input)> 0:
-
-                            default_value = user_input
-
-                            if user_input == Setting.CANCEL_OPERATION_PHRASE:
-                                do_operation = False
-                            else:
-
-                                if index == 0:
-                                    customer_.fullname = user_input
-                                    is_good_value = customer_.is_valid_fullname()
-                                elif index == 1:
-                                    customer_.email = user_input
-                                    is_good_value = customer_.is_valid_email()
-                                elif index == 2:
-                                    customer_.phone = user_input
-                                    is_good_value = customer_.is_valid_phone()
-
-                                pu.clear()
+                        if user_input == Setting.CANCEL_OPERATION_PHRASE:
+                            do_operation = False
                         else:
-                            pass
 
-                        if not is_good_value:
-                            pu.clear()
-                            print("Invalid Field. Please enter a valid value.\n\n" +
-                                  "Or type the phrase:\n\n" +
-                                  f"\t{Setting.OPEN_TAG} {Setting.CANCEL_OPERATION_PHRASE } {Setting.CLOSE_TAG}\n\nto go back to previous menu.")
-                    data_values.append(user_input)
-                else:
-                    data_values.append(user_input)
+                            if index == 0:
+                                customer_.fullname = user_input
+                                is_good_value = customer_.is_valid_fullname()
+                            elif index == 1:
+                                customer_.email = user_input
+                                is_good_value = customer_.is_valid_email()
+                            elif index == 2:
+                                customer_.phone = user_input
+                                is_good_value = customer_.is_valid_phone()
+                                pu.clear()
+                    else:
+                        pass
+
+                    if not is_good_value:
+                        pu.clear()
+                        print("Invalid Field. Please enter a valid value.\n\n" +
+                              "Or type the phrase:\n\n" +
+                              f"\t{Setting.OPEN_TAG} {Setting.CANCEL_OPERATION_PHRASE } "
+                              f"{Setting.CLOSE_TAG}\n\nto go back to previous menu.")
+
+                data_values.append(user_input)
+                # else:
+                #     data_values.append(user_input)
 
         # customer_ = Customer(data_values[0], data_values[1], data_values[2])
 
