@@ -24,6 +24,7 @@ from abstraction.Customer import Customer
 from abstraction.Reservation import Reservation
 from abstraction.AbstractionType import AbstractionType
 
+
 class JsonManager:
     """
     JsonManager:
@@ -55,7 +56,7 @@ class JsonManager:
     def is_valid_json(src_json):
         """
         Evaluates either a string is or not a valid JSON formed source.
-        	      The string to be checked	Boolen
+                  The string to be checked	Boolen
         Args:
             src_json (str): string to be checked.
         Returns:
@@ -74,21 +75,23 @@ class JsonManager:
     @staticmethod
     def get_path(data_type):
         """
-        This is a catalyzer of paths as per each essential entity in the system.
-        Every entity holds one folder to avoid collisions.
+        This is a catalyzer of paths as per each essential entity
+        in the system. Every entity holds one folder to avoid
+        collisions.
 
         Args:
-            data_type (enum): enum item coming from AbstractionTypeClass in the abstraction
-            package.
+            data_type (enum): enum item coming from AbstractionTypeClass
+            in the abstraction package.
         Returns:
-            bool:returns the valid path for a specific artifact in the system.
+            bool:returns the valid path for a specific artifact in the
+            system.
         """
         catalog_path = ""
 
         if data_type == AbstractionType.CUSTOMER:
-            catalog_path =  (Setting.SEP_PATH + Setting.DATA_PATH +
-                             Setting.SEP_PATH + Setting.CUSTOMER_PATH +
-                             Setting.SEP_PATH)
+            catalog_path = (Setting.SEP_PATH + Setting.DATA_PATH +
+                            Setting.SEP_PATH + Setting.CUSTOMER_PATH +
+                            Setting.SEP_PATH)
         elif data_type == AbstractionType.HOTEL:
             catalog_path = (Setting.SEP_PATH + Setting.DATA_PATH +
                             Setting.SEP_PATH + Setting.HOTEL_PATH +
@@ -103,7 +106,7 @@ class JsonManager:
         parent_path = Path(__file__)
         full_path = str(parent_path.parent.parent) + catalog_path
 
-        if catalog_path!="":
+        if catalog_path != "":
             return full_path
 
         return catalog_path
@@ -114,12 +117,13 @@ class JsonManager:
         JSON factory of source string.
         It is based on the entity type defined in abstaction.AbastractionType
         Args:
-            data_type (enum): enum item coming from AbstractionTypeClass in the abstraction
-                              package.
-            data(object): object of the kind, holding the raw material from where a
-                          JSON serialization will be built.
+            data_type (enum): enum item coming from AbstractionTypeClass in the
+                              abstraction package.
+            data(object): object of the kind, holding the raw material from
+                          where a JSON serialization will be built.
         Returns:
-            dict: JSON serialization built, which might be valid format per each-kind-of-en
+            dict: JSON serialization built, which might be valid format per
+            each-kind-of-en.
         """
         src_data = {}
 
@@ -161,13 +165,18 @@ class JsonManager:
         a real file in the persistence drive.
 
         Args:
-            data_type (enum): enum item coming from AbstractionTypeClass in the abstraction package.
-            file_id (str): unique artifact in the system ID having UUID-4 structure.
+            data_type (enum): enum item coming from AbstractionTypeClass in the
+             abstraction package.
+            file_id (str): unique artifact in the system ID having UUID-4
+            structure.
         Returns:
-            bool: Boolean check to consider the file as exiting in the persistence drive.
-                  This can be considerate as a next check level, not a syntactical check.
+            bool: Boolean check to consider the file as exiting in the
+                  persistence drive. This can be considerate as a next
+                  check level, not a syntactical
+             check.
         """
-        full_path = JsonManager.get_path(data_type) + file_id + Setting.FILE_EXTENSION
+        full_path = (JsonManager.get_path(data_type) + file_id +
+                     Setting.FILE_EXTENSION)
         try:
             return os.path.exists(full_path)
             # if os.path.exists(full_path):
@@ -186,7 +195,6 @@ class JsonManager:
         #     print(f"An unexpected error occurred: {e}")
         #     return False
 
-
     @staticmethod
     def create_data(data_type, data):
         """
@@ -194,12 +202,17 @@ class JsonManager:
         it is the most bordering part of the system interfacing
         with the static persistence layer.
         Args:
-            data_type (enum): enum item coming from AbstractionTypeClass in the abstraction package.
-            data (str): the actual JSON data formatted to be stored in the final end file.
+            data_type (enum): enum item coming from AbstractionTypeClass in the
+            abstraction package.
+            data (str): the actual JSON data formatted to be stored in the
+                        final end file.
         Returns:
-            bool: It actually has a Boolean flag marking or not the artifact creation.
+            bool: It actually has a Boolean flag marking or not the
+                  artifact creation.
         """
-        full_path = JsonManager.get_path(data_type) + data.id + Setting.FILE_EXTENSION
+        full_path = (JsonManager.get_path(data_type) + data.id +
+                     Setting.FILE_EXTENSION)
+
         src_data = JsonManager.yield_json(data_type, data)
 
         if Setting.NULL_VALUE in str(src_data):
@@ -223,10 +236,12 @@ class JsonManager:
         It extracts an artifact JSON file in the static persistence layer.
         It is the most boundary frontier regarding reading data on the system.
         Args:
-            file_path (str): the exact OS path from where information will be read.
+            file_path (str): the exact OS path from where information will
+            be read.
         Returns:
             str: It actually has a string  containing the artifact data,
-                 on where empty data means that the file reding was not fruitful.
+                 on where empty data means that the file reding was not
+                 fruitful.
         """
         data = ""
         # err_to_print = ""
@@ -250,17 +265,22 @@ class JsonManager:
     @staticmethod
     def retrieve_data(data_type, id_):
         """
-        It is the interpretation of the raw JSON data into the system native objects.
-        It is a translator from system base files to real objects that the system
-        can use for communicate in between processes.
+        It is the interpretation of the raw JSON data into the system
+        native objects.
+        It is a translator from system base files to real objects
+        that the system can use for communicate in between processes.
+
         Args:
-            data_type (enum): enum item coming from AbstractionTypeClass in the abstraction package.
-            id_ (st): unique UUID-4 for the artifact, circumscribe in the datatype of the kind
-                      of the first argument.
+            data_type (enum): enum item coming from AbstractionTypeClass
+            in the abstraction package.
+
+            id_ (st): unique UUID-4 for the artifact, circumscribe
+             in the datatype of the kind of the first argument.
         Returns:
             object: object that represents the artifact in the system.
         """
-        full_path = JsonManager.get_path(data_type) + id_ + Setting.FILE_EXTENSION
+        full_path = (JsonManager.get_path(data_type) + id_ +
+                     Setting.FILE_EXTENSION)
         obj_item = None
         data_src = ""
 
@@ -299,16 +319,17 @@ class JsonManager:
     @staticmethod
     def display_data(data_type):
         """
-        This class is a consumer of load_from_files, since it reaches every artifact
-        in batch and interpret them into helpful data structures objects to be digested
-        by the system user interface.
+        This class is a consumer of load_from_files, since it reaches
+        every artifact in batch and interpret them into helpful data
+        structures objects to be digested by the system user interface.
         Args:
-            data_type (enum): enum item coming from AbstractionTypeClass in the abstraction package.
-            id_ (str): unique UUID-4 for the artifact, circumscribe in the datatype of the kind
-                       of the first argument.
+            data_type (enum): enum item coming from AbstractionTypeClass
+             in the abstraction package.
+            id_ (str): unique UUID-4 for the artifact, circumscribe in
+                       the datatype of the kind of the first argument.
         Returns:
-            object[]: array of objects of the kind of artifact that represents objects
-                      that the system can handle.
+            object[]: array of objects of the kind of artifact that
+                      represents objects that the system can handle.
         """
         pu = PromptUtils(Screen())
         pu.clear()
@@ -355,8 +376,8 @@ class JsonManager:
                     date = str(data_src['date'])
                     # registration_date = str(data_src['registration_date'])
                     obj_line = Reservation(hotel_id, customer_id, room,
-                                           int(adults_number), int(children_number),
-                                           date)
+                                           int(adults_number),
+                                           int(children_number), date)
                     obj_line.id = id_
                     obj_container.append(obj_line)
                 else:
@@ -373,14 +394,16 @@ class JsonManager:
         is needed the system.
         By using it, system can disappear individual artifacts.
         Args:
-            data_type (enum): enum item coming from AbstractionTypeClass in the abstraction package.
-            file_id (str): unique UUID-4 for the artifact, circumscribe in the datatype of the kind
-                       of the first argument.
+            data_type (enum): enum item coming from AbstractionTypeClass
+                              in the abstraction package.
+            file_id (str): unique UUID-4 for the artifact, circumscribe
+                           in the datatype of the kind of the first argument.
         Returns:
             object[]: flag indicating success or not deletion.
 
         """
-        full_path = JsonManager.get_path(data_type) + file_id + Setting.FILE_EXTENSION
+        full_path = (JsonManager.get_path(data_type) + file_id +
+                     Setting.FILE_EXTENSION)
         try:
             if os.path.exists(full_path):
                 os.remove(full_path)
@@ -391,7 +414,8 @@ class JsonManager:
             print(f"Error: The file '{full_path}' does not exist.")
             return False
         except PermissionError:
-            print(f"Error: Permission denied to delete the file '{full_path}'.\n"
+            print(f"Error: Permission denied to delete the file"
+                  f" '{full_path}'.\n"
                   f"Ensure the file is not open or read-only.")
             return False
         # except Exception as e:
