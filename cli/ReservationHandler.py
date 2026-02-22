@@ -153,7 +153,7 @@ class ReservationHandler:
         pu.clear()
 
         reservations = JsonManager.display_data(AbstractionType.RESERVATION)
-        # pu.enter_to_continue()
+
         reservations_lines = []
 
 
@@ -162,14 +162,32 @@ class ReservationHandler:
             reservation = cast(Reservation, each_reservation)
             customer = JsonManager.retrieve_data(AbstractionType.CUSTOMER, reservation.customer_id)
             hotel = JsonManager.retrieve_data(AbstractionType.HOTEL, reservation.hotel_id)
+
+
             reservation_parts = reservation.id.split('-')
+
+            # print(f"{reservation_parts[0]}")
+            # pu.enter_to_continue()
+            # print(f"{customer.fullname}")
+            # pu.enter_to_continue()
+            # print(f"{hotel.name}")
+            # pu.enter_to_continue()
+            # print(f"{reservation.room}")
+            # pu.enter_to_continue()
+            # print(f"{reservation.date}")
+            # pu.enter_to_continue()
 
             reservation_line = f"¬{reservation_parts[0]}¬ {customer.fullname} in {hotel.name}, {reservation.room} on {reservation.date}"
 
+
             reservations_lines.append(reservation_line)
 
+        # pu.enter_to_continue()
 
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
+
+
+
 
         selection = SelectionMenu.get_selection(reservations_lines, title="Select the Reservation to be cancelled.",
                                                 subtitle="Type a valid ordinal number to select the specific Reservation\n"

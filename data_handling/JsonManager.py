@@ -267,8 +267,9 @@ class JsonManager:
                     # print(f"date {date}")
                     # print(f"registration_date {registration_date}")
 
+
                     obj_line = Reservation(hotel_id, customer_id, room, int(adults_number), int(children_number), date)
-                    #pu.enter_to_continue()
+                    # pu.enter_to_continue()
 
                     obj_line.id = id_
                     obj_container.append(obj_line)
