@@ -1,26 +1,61 @@
-from abstraction.Reservation import Reservation
-from cli.MenuDescriptor import MenuDescriptor
-from setting.Setting import Setting
-from data_handling.JsonManager import JsonManager
-from abstraction.AbstractionType import AbstractionType
-from consolemenu import SelectionMenu
+"""
+ Module. AbstractionType. Exercise of Programming 3 and Unity Testing 6.2
+ @Motive . Unity Testing
+           Code Coverage Evaluation
+           PEP8 check with Pylint and Flake8
+ @author . Ronald Sandí Quesada
+ @Student-ID . A01794620
+ @email . A01794620@tec.mx
+ @MNA Class . Pruebas de Software y Aseguramiento de la Calidad (TC4017)
+ @Professor . PhD Gerardo Padilla Zárate
+ @Professor Evaluator and Tutor . PhD Daniel Flores Araiza
+ @Period . I Trimester 2026
+ @Date: 22 February 2026
+"""
 from typing import cast
+from consolemenu import SelectionMenu
 from consolemenu import PromptUtils
 from consolemenu.screen import Screen
 from prompt_toolkit import prompt
 
-class ReservationHandler:
+from abstraction.Reservation import Reservation
+from abstraction.AbstractionType import AbstractionType
+from setting.Setting import Setting
+from cli.MenuDescriptor import MenuDescriptor
+from data_handling.JsonManager import JsonManager
 
+
+class ReservationHandler:
+    """
+    This module is the interface between the CLI layer and the
+    essential Reservation entity.
+    It performs the following actions:
+    1. Create Reservations.
+    2. Displays already created customers then by
+       individual selection it:
+       2.1 Delete reservation.
+    """
     def __init__(self):
         pass
 
+    # Disabled on this fx:
+    # (too-many-branches), (too-many-statements),
+    # (too-many-nested-blocks) and (too-many-locals)
+    # pylint: disable=R0912, R0915, R1702, R0914
     @staticmethod
     def register_reservation():
-
+        """
+        Perform a reservation from a customer/hotel information
+        typed or selected from end-user, it creates the
+        associated objected and stores it in the system drive.
+        Args:
+        Returns:
+             void: internal system artifact creation.
+         """
         pu = PromptUtils(Screen())
         pu.clear()
 
-        print( Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
+        print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
         print('Create a new Reservation')
         customers = JsonManager.display_data(AbstractionType.CUSTOMER)
 
@@ -32,7 +67,14 @@ class ReservationHandler:
             ids_items.append(customer.id)
 
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
-        selection = SelectionMenu.get_selection(customer_items, title="Select the Customer for the Reservation", subtitle="Type a valid ordinal number to select the specific Customer.", show_exit_option=False)
+        selection = (
+            SelectionMenu.get_selection(customer_items,
+                                        title="Select the Customer for"
+                                        " the Reservation",
+                                        subtitle="Type a valid ordinal number "
+                                                 "to select the specific "
+                                                 "Customer.",
+                                        show_exit_option=False))
         hotels = JsonManager.display_data(AbstractionType.HOTEL)
         hotel_items = []
         ids_hotel_items = []
@@ -41,7 +83,14 @@ class ReservationHandler:
             hotel_items.append(f"{hotel.name}")
             ids_hotel_items.append(hotel.id)
 
-        selection_hotel = SelectionMenu.get_selection(hotel_items, title="Select the Hotel for the Reservation", subtitle="Type a valid ordinal number to select the specific Hotel", show_exit_option=False)
+        selection_hotel = (
+            SelectionMenu.get_selection(hotel_items,
+                                        title="Select the Hotel for the "
+                                              "Reservation",
+                                        subtitle="Type a valid ordinal number "
+                                                 "to select the specific"
+                                                 " Hotel",
+                                        show_exit_option=False))
         pu.clear()
 
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
@@ -51,16 +100,20 @@ class ReservationHandler:
 
         data_values = []
 
-        # for index, customer_field in enumerate(MenuDescriptor.reservation_fields):
+        # for index, customer_field in enumerate
+        # (MenuDescriptor.reservation_fields):
         #     default_value = ""
-        #     user_input = prompt(f"Please enter Reservation's {customer_field}: ", default=f"{default_value}")
+        #     user_input = prompt(f"Please enter Reservation's
+        #     {customer_field}: ",
+        #     default=f"{default_value}")
         #     data_values.append(user_input)
 
         #############################################
         reservation_ = Reservation()
         do_operation = True
 
-        for index, reservation_field in enumerate(MenuDescriptor.reservation_fields):
+        for index, reservation_field in (
+                enumerate(MenuDescriptor.reservation_fields)):
             if do_operation:
 
                 default_value = ""
@@ -72,7 +125,8 @@ class ReservationHandler:
 
                 while do_operation and not is_good_value:
 
-                    user_input = prompt(f"Please enter customer's {reservation_field}: ",
+                    user_input = prompt(f"Please enter customer's "
+                                        f"{reservation_field}: ",
                                         default=f"{default_value}")
 
                     if len(user_input) > 0:
@@ -87,13 +141,19 @@ class ReservationHandler:
 
                             elif index == 1:
                                 if user_input.isnumeric():
-                                    reservation_.adults_number = int(user_input)
-                                    is_good_value = reservation_.is_valid_adult_quantity()
+                                    reservation_.adults_number = (
+                                        int(user_input))
+                                    is_good_value = (
+                                        reservation_.is_valid_adult_quantity())
                             elif index == 2:
                                 if user_input.isnumeric():
-                                    reservation_.children_number = int(user_input)
-                                    is_good_value = reservation_.is_valid_children_quantity()
-                                #else:
+                                    reservation_.children_number = (
+                                        int(user_input))
+
+                                    is_good_value = (
+                                        reservation_.is_valid_children_quantity())  # noqa: E501
+
+                                # else:
                                 #    pu.enter_to_continue()
                                 #    print("M")
                                 #    print(user_input)
@@ -106,17 +166,17 @@ class ReservationHandler:
 
                     if not is_good_value:
                         # pu.clear()
-                        print("Invalid Field. Please enter a valid value.\n\n" +
+                        print("Invalid Field. Please enter a valid "
+                              "value.\n\n" +
                               "Or type the phrase:\n\n" +
-                              f"\t{Setting.OPEN_TAG} {Setting.CANCEL_OPERATION_PHRASE} "
-                              f"{Setting.CLOSE_TAG}\n\nto go back to previous menu.")
+                              f"\t{Setting.OPEN_TAG} "
+                              f"{Setting.CANCEL_OPERATION_PHRASE} "
+                              f"{Setting.CLOSE_TAG}\n\nto"
+                              f" go back to previous menu.")
 
                 data_values.append(user_input)
         #############################################
-
-
-        #pu.enter_to_continue()
-
+        # pu.enter_to_continue()
         # print("." * 40)
         # print(ids_hotel_items[selection_hotel])
         # print(ids_items[selection])
@@ -125,9 +185,10 @@ class ReservationHandler:
         # print(data_values[2])
         # print(data_values[3])
         # print("." * 40)
-        #pu.enter_to_continue()
-
-        # reservation = Reservation(ids_hotel_items[selection_hotel], ids_items[selection], data_values[0], data_values[1], data_values[2], data_values[3])
+        # pu.enter_to_continue()
+        # reservation = Reservation(ids_hotel_items[selection_hotel],
+        # ids_items[selection], data_values[0], data_values[1],
+        # data_values[2], data_values[3])
         # print(reservation)
 
         pu.clear()
@@ -138,17 +199,23 @@ class ReservationHandler:
 
             JsonManager.create_data(AbstractionType.RESERVATION, reservation_)
             pu.clear()
-            print(f"Reservation created successfully:")
+            print("Reservation created successfully:")
             print(f"New Reservation-ID: {reservation_.id}")
             print(reservation_)
         else:
-            print(f"Reservation Creation Cancelled.")
+            print("Reservation Creation Cancelled.")
 
         pu.enter_to_continue()
 
-
     @staticmethod
     def display_cancel_reservations():
+        """
+        It allows the possibility to drop a specific
+        reservation artifact out of the system.
+        Args:
+        Returns:
+            void: internal system deletion.
+        """
         pu = PromptUtils(Screen())
         pu.clear()
 
@@ -156,13 +223,13 @@ class ReservationHandler:
 
         reservations_lines = []
 
-
         for each_reservation in reservations:
-
             reservation = cast(Reservation, each_reservation)
-            customer = JsonManager.retrieve_data(AbstractionType.CUSTOMER, reservation.customer_id)
-            hotel = JsonManager.retrieve_data(AbstractionType.HOTEL, reservation.hotel_id)
 
+            customer = JsonManager.retrieve_data(AbstractionType.CUSTOMER,
+                                                 reservation.customer_id)
+            hotel = JsonManager.retrieve_data(AbstractionType.HOTEL,
+                                              reservation.hotel_id)
 
             reservation_parts = reservation.id.split('-')
 
@@ -177,8 +244,9 @@ class ReservationHandler:
             # print(f"{reservation.date}")
             # pu.enter_to_continue()
 
-            reservation_line = f"¬{reservation_parts[0]}¬ {customer.fullname} in {hotel.name}, {reservation.room} on {reservation.date}"
-
+            reservation_line = (f"¬{reservation_parts[0]}¬ "
+                                f"{customer.fullname} in {hotel.name}, "
+                                f"{reservation.room} on {reservation.date}")
 
             reservations_lines.append(reservation_line)
 
@@ -186,19 +254,26 @@ class ReservationHandler:
 
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
 
-
-
-
-        selection = SelectionMenu.get_selection(reservations_lines, title="Select the Reservation to be cancelled.",
-                                                subtitle="Type a valid ordinal number to select the specific Reservation\n"
-                                                         "Confirmation will be prompted before deleting the Reservation."
-                                                , show_exit_option=False)
+        selection = (
+            SelectionMenu.get_selection(reservations_lines,
+                                        title="Select the "
+                                              "Reservation to be"
+                                              " cancelled.",
+                                        subtitle="Type a valid ordinal"
+                                                 " number to select the"
+                                                 " specific Reservation\n"
+                                                 "Confirmation will be "
+                                                 "prompted before deleting "
+                                                 "the Reservation.",
+                                        show_exit_option=False))
 
         reservation = cast(Reservation, reservations[selection])
 
+        customer = JsonManager.retrieve_data(AbstractionType.CUSTOMER,
+                                             reservation.customer_id)
 
-        customer = JsonManager.retrieve_data(AbstractionType.CUSTOMER, reservation.customer_id)
-        hotel = JsonManager.retrieve_data(AbstractionType.HOTEL, reservation.hotel_id)
+        hotel = JsonManager.retrieve_data(AbstractionType.HOTEL,
+                                          reservation.hotel_id)
 
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
         print("You have selected this reservation to be cancelled:")
@@ -209,11 +284,14 @@ class ReservationHandler:
 
         print(Setting.COL_WIDTH * Setting.HEAD_SYMBOL)
 
-        user_input = prompt(f"Enter [Y] for Delete the Reservation or [N] to cancel the deletion. ", default="N")
+        user_input = prompt("Enter [Y] for Delete the Reservation "
+                            "or [N] to cancel the deletion. ",
+                            default="N")
         # pu.clear()
 
         if user_input == "Y":
-            JsonManager.delete_data(AbstractionType.RESERVATION, reservation.id)
+            JsonManager.delete_data(AbstractionType.RESERVATION,
+                                    reservation.id)
             print("Reservation cancelled successfully.")
         elif user_input == "M":
             print("Deletion process has been cancelled.")
