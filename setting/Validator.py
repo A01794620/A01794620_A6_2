@@ -1,7 +1,7 @@
+import re
+import phonenumbers
 from datetime import datetime
 from setting.Setting import Setting
-import phonenumbers
-import re
 
 class Validator:
 
