@@ -39,7 +39,8 @@ Program for the Programming Individual Exercise:
 Reservation System using Unity Testing (Exersice 6.2)
 
 ---
-* **Program #1. Reservation system:
+## Program #1. Reservation system:
+  * 
   * The motive of the program is to simulate an essential reservation system.
   * It includes: Customers, Hotels and Reservations.
 ---
