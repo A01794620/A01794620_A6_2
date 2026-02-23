@@ -73,12 +73,12 @@ Majority of the issues found in both tools combined are :
 
 **Table 2.** Classes Links.
 
-| Class  | Code | Motive |
-|--------|------|--------|
-|        | [Go](https://github.com/A01794620/A01794620_A5_2/)      |        |
-|        |      |        |
-|        |      |        |
-|        |      |        |
+| Package      | Class           | Motive                                                                                                                                                                                                       | Code                                                                                       |
+|--------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| abstractions |                 | This package holds the essential entities of the system.                                                                                                                                                     | [Go](https://github.com/A01794620/A01794620_A6_2/tree/main/abstraction)                    |
+|              | AbstractionType | This is an enumeration class that helps to iterate though the essential subject classes: Customer, Hotel and Reservation. These three abstractions are the core of the whole system.                         | [Go](https://github.com/A01794620/A01794620_A6_2/blob/main/abstraction/AbstractionType.py) |
+|              | Customer        | One of the three pillars of the solution. It holds all the information about the customer who pursues reservations in hotels. It holds a unique ID, one full name, his/her e-mail address and the telephone. | [Go](https://github.com/A01794620/A01794620_A6_2/blob/main/abstraction/Customer.py)        |
+|              | Hotel           | This class holds the Hotel entity structure linked to the physical places to be booked. This entity is the gold of the Customers, who are looking towards find a room in a hotel as a reservation.           | [Go](https://github.com/A01794620/A01794620_A6_2/blob/main/abstraction/Hotel.py)           |
 
 
 ## Unit Test Cases:
@@ -102,8 +102,8 @@ The following material helped on validation inside classes:
 * Hotel Module: [Go](https://github.com/A01794620/A01794620_A6_2/tree/main/pics/sys_hotel) 
 * Reservations Module: [Go](https://github.com/A01794620/A01794620_A6_2/tree/main/pics/sys_reservation) 
 
-## Coverage Images:
-* See the images for the Coverage Tool Results: [Go](https://github.com/A01794620/A01794620_A6_2/blob/main/pics/coverage/coverage_01.png)
+## Coverage Image:
+* See the image for the Coverage Tool Results: [Go](https://github.com/A01794620/A01794620_A6_2/blob/main/pics/coverage/coverage_01.png)
 
 ## Unity Testing Images:
 * See the images for the Unity Tests using Coverage: [Go](https://github.com/A01794620/A01794620_A6_2/blob/main/pics/coverage/coverage_02.png)
