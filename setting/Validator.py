@@ -105,7 +105,7 @@ class Validator:
             # else:
             #     return False
         except phonenumbers.phonenumberutil.NumberParseException as e:
-            print(f"Error parsing number: {e}")
+            # print(f"Error parsing number: {e}")
             return False
 
     @staticmethod

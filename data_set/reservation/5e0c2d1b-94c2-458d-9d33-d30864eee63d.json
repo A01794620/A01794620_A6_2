@@ -1,10 +1,10 @@
 {
-    "id": "8b8cd13b-e641-4cd9-900c-d9dc7855b1fc",
+    "id": "5e0c2d1b-94c2-458d-9d33-d30864eee63d",
     "customer_id": "1cabdfe0-2bd0-47c1-81bf-a46d44c45902",
     "hotel_id": "3e3c9df2-c209-4cf7-913b-26227823f803",
     "room": "1",
     "adults_number": 1,
-    "children_number": 1,
+    "children_number": 0,
     "date": "1-1-2028",
-    "registration_date": "2026-02-22 14:48:57.965640"
+    "registration_date": "2026-02-22 18:23:05.241151"
 }
