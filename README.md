@@ -107,7 +107,7 @@ Majority of the issues found in both tools combined are:
 * See the images for the Unity Tests using Coverage: [Go](https://github.com/A01794620/A01794620_A6_2/blob/main/pics/coverage/coverage_02.png)
 
 > [!NOTE]
-> Following the advises of Uncle Bod, the Unity Test returned on this investigation where built using the avoidance of not using weak or volatiles interfaces such GUI.
+> Following the advises of Uncle Bod, the Unity Test Battery returned on this investigation has been  built using the avoidance of not using weak or volatiles interfaces such GUI.
 > For that reason the actions done in the CLI user interface where simulated but in the entities and helpers layer.
 > This information was extracted, adapted and applied from Martin (2018, p. 220).
 
