@@ -106,6 +106,11 @@ Majority of the issues found in both tools combined are:
 ## Unity Testing Images:
 * See the images for the Unity Tests using Coverage: [Go](https://github.com/A01794620/A01794620_A6_2/blob/main/pics/coverage/coverage_02.png)
 
+> [!NOTE]
+> Following the advises of Uncle Bod, the Unity Test returned on this investigation where built using the avoidance of not using weak or volatiles interfaces such GUI.
+> For that reason the actions done in the CLI user interface where simulated but in the entities and helpers layer.
+> This information was extracted, adapted and applied from Martin (2018, p. 220).
+
 ## Pylint Image:
 * Check the Pylint Reports: [Go](https://github.com/A01794620/A01794620_A6_2/tree/main/pics/pylint)
  
@@ -125,5 +130,6 @@ The following material helped on validation inside classes:
 * Conventional Commits (2026). _Conventional Commits_. Recovered on February 12, 2026 form https://www.conventionalcommits.org/en/v1.0.0/
 * Buchea, J. (2026). _Semantic Commit Messages_. Recovered on February 12, 2026 from https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716
 * Dale, D (2026). _Project Description PhoneNumbers Python Library_. Recovered on February 18, 2026 from https://pypi.org/project/phonenumbers
+* Martin, R. (2018) Arquitectura Limpia. [Clean Architecture]. Anaya.
 * Sphinx (2018). _Welcome to console-menu’s documentation!_ Recovered on February 18, 2026 from https://console-menu.readthedocs.io/en/latest/index.html
 * Sphinx (2026). _Coverage.py._ Recovered on February 18, 2026 from https://coverage.readthedocs.io/en/7.13.4/#
