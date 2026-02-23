@@ -1,16 +1,25 @@
-import unittest
+"""
+JsonManagerCreate Unit Test
+"""
 import sys
+import unittest
 from pathlib import Path
-_parent_dir = Path(__file__).parent.parent.parent.parent.resolve()
-sys.path.insert(0, str(_parent_dir))
+
+from setting.Setting import Setting
 from data_handling.JsonManager import JsonManager
 from abstraction.AbstractionType import AbstractionType
-from setting.Setting import Setting
 from abstraction.Customer import Customer
 from abstraction.Hotel import Hotel
 from abstraction.Reservation import Reservation
 
+_parent_dir = Path(__file__).parent.parent.parent.parent.resolve()
+sys.path.insert(0, str(_parent_dir))
+
+
 class JsonManagerTestCreate(unittest.TestCase):
+    """
+    JsonManagerCreate Unit Test
+    """
     def setUp(self):
 
         self.customer = Customer(Setting.SYNTHETIC_DATA_FULLNAME,
@@ -37,19 +46,27 @@ class JsonManagerTestCreate(unittest.TestCase):
 
             if abs_type is AbstractionType.CUSTOMER:
                 self.customer.id = Setting.SYNTHETIC_DATA_UUID
-                self.assertTrue(JsonManager.create_data(AbstractionType.CUSTOMER, self.customer), msg=msg_)
+                self.assertTrue(JsonManager.create_data(
+                                AbstractionType.CUSTOMER,
+                                self.customer), msg=msg_)
             elif abs_type is AbstractionType.HOTEL:
                 self.hotel.id = Setting.SYNTHETIC_DATA_UUID
-                self.assertTrue(JsonManager.create_data(AbstractionType.HOTEL, self.hotel), msg=msg_)
+                self.assertTrue(JsonManager.create_data(
+                                AbstractionType.HOTEL,
+                                self.hotel), msg=msg_)
             elif abs_type is AbstractionType.RESERVATION:
                 self.reservation.id = Setting.SYNTHETIC_DATA_UUID
-                self.assertTrue(JsonManager.create_data(AbstractionType.RESERVATION, self.reservation), msg=msg_)
+                self.assertTrue(JsonManager.create_data(
+                                AbstractionType.RESERVATION,
+                                self.reservation), msg=msg_)
             else:
                 pass
 
     def test_assert_false_create_data(self):
-        self.assertFalse(JsonManager.create_data(Setting.SYNTHETIC_DATA_INVALID_TYPE, self.hotel),
+        self.assertFalse(JsonManager.create_data(
+                         Setting.SYNTHETIC_DATA_INVALID_TYPE, self.hotel),
                          msg="Testing if data can not be created")
+
 
 if __name__ == '__main__':
     unittest.main()
