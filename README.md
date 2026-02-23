@@ -40,7 +40,7 @@ Reservation System using Unity Testing (Exersice 6.2)
 
 ---
 ## Program #1. Reservation system:
-  * 
+
   * The motive of the program is to simulate an essential reservation system.
   * It includes: Customers, Hotels and Reservations.
 ---
@@ -51,14 +51,14 @@ The GitHub repository has the following structure.
 
 **Table 1.** Project structure in GitHub repository.
 
-| Folder in A01794620_A6_2 repository | Details                                                                                                                                                                                                                                                                            |   |   |   |
-|-------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|---|---|
-| abstractions                        | This package holds the essential entities of the system: 1. Customer. 2. Hotel. 3. Reservation.                                                                                                                                                                                    |   |   |   |
-| cli                                 | This packages holds all the classes and functions to enable the system user to interacts with the application. It uses CLI (command line interface) to send messages to the system, and it also allows the system to dispatch back to the commands ordered by the of the end-user. |   |   |   |
-| datahandling                        | This package holds only one handy class, the most relevant to file persistence. JSON handler package.                                                                                                                                                                              |   |   |   |
-| dataset                             | This where all the artifacts are stored in JSON files. Every main subject has a folder in.                                                                                                                                                                                         |   |   |   |
-| setting                             | This is global system settings, which are default and essential for system to start (bootstrapping).                                                                                                                                                                               |   |   |   |
-| tests                               | This is where all the unit testing are, following stardanrds one folder mirrored per every folder simulating unit testing.                                                                                                                                                         |   |   |   |
+| Folder in A01794620_A6_2 repository | Details                                                                                                                                                                                                                                                                     |
+|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| abstractions                        | This package holds the essential entities of the system: 1. Customer. 2. Hotel. 3. Reservation.                                                                                                                                                                             |
+| cli                                 | This packages holds all the classes and functions to enable the system user to interacts with the application. It uses CLI (command line interface) to send messages to the system, and it also allows the system to dispatch back to the commands ordered by the end-user. |
+| datahandling                        | This package holds only one handy class, the most relevant to file persistence. JSON handler package.                                                                                                                                                                       |
+| dataset                             | This is where all the artifacts are stored in JSON files. Every main subject has a folder in.                                                                                                                                                                               |
+| setting                             | This is global system settings, which are default and essential for system to start (bootstrapping).                                                                                                                                                                        |
+| tests                               | This is where all the unit testing are, following standards, one folder mirrored per every folder simulating unit testing (where testing is needed).                                                                                                                        |
 
 ## Quality Assurance using Pylint and Flake 8.
  
