@@ -14,15 +14,15 @@
 ## Introduction.
 
 This document exhibits the dynamic of coding and applying: 
-* Static analysis for quality assurance using Pylint and Flake8
-* Running the tool Coverage to check the running code portion coverage.
-* In the process of creating a reservation system.
-* Adding Unity Testing
+* Static analysis for quality assurance using Pylint and Flake8.
+* Running the tool Coverage, which indicates how the flow runs into the applicative.
+* The process of creating a reservation system.
+* Adding Unity Testing and using them in combination with Coverage.
 
 The process of building a valid deliverable is described in the next main steps:
 
 1.	Understanding the main problem and its specific requirements.
-2.	Installation of the support libraries: Pylint, Flake8 and Converage.
+2.	Installation of the support libraries: Pylint, Flake8 and Coverage.
 3.	Coding the solution.
 4.	Initial testing for preparing the environment.
 5.	Testing using Pylint static analysis tool, under PEP-8 standards. 
@@ -41,8 +41,7 @@ Reservation System using Unity Testing (Exersice 6.2)
 ---
 * **Program #1. Reservation system:
   * The motive of the program is to simulate an essential reservation system.
-  * It includes Customers, Hotels and Reservations.
-  * compile the sales totals using the information from both files.
+  * It includes: Customers, Hotels and Reservations.
 ---
 
 ## Structure of the Project.
