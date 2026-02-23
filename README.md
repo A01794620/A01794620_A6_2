@@ -96,6 +96,18 @@ The following material helped on validation inside classes:
 * The commits of the project had been performed using the techniques described in Buchea(2026) and Conventional Commits (2026).
 * The amazing Coverage tool from Sphinx (2026) used to check the code coverage.
 
+## System Images:
+
+## Coverage Images:
+
+## Unity Testing Images:
+
+## Pylint Images:
+
+## Flake8 Images:
+
+
+
 ## APA References:
 * Conventional Commits (2026). _Conventional Commits_. Recovered on February 12, 2026 form https://www.conventionalcommits.org/en/v1.0.0/
 * Buchea, J. (2026). _Semantic Commit Messages_. Recovered on February 12, 2026 from https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716

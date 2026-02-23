@@ -32,8 +32,10 @@
            Use the unittest module in Python.
     Req 4. The code coverage for all unittests should accumulate at
            least 85% of line coverage.
-    Req 5. The program shall include the mechanism to handle invalid data in the file.
-           Errors should be displayed in the console and the execution must continue.
+    Req 5. The program shall include the mechanism to handle
+           invalid data in the file.
+           Errors should be displayed in the console and the execution
+           must continue.
     Req 6. Be compliant with PEP8.
     Req 7. The source code must show no warnings using Fleak and PyLint.
 """
@@ -42,4 +44,7 @@ from cli.MenuHandler import MenuHandler
 
 
 if __name__ == '__main__':
-    MenuHandler.show_system_menu(Setting.SYSTEM_CANONICAL, Setting.SYSTEM_MISSION + "\n" + Setting.SYSTEM_SUPPORT_EMAIL)
+    MenuHandler.show_system_menu(
+        Setting.SYSTEM_CANONICAL,
+        Setting.SYSTEM_MISSION + "\n" +
+        Setting.SYSTEM_SUPPORT_EMAIL)
