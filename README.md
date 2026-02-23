@@ -97,21 +97,23 @@ The following material helped on validation inside classes:
 * The amazing Coverage tool from Sphinx (2026) used to check the code coverage.
 
 ## System Images:
-* Main system panel [Go](https://github.com/A01794620/A01794620_A6_2/tree/main/pics/sys_main) 
+* Main system panel: [Go](https://github.com/A01794620/A01794620_A6_2/blob/main/pics/sys_main/sys_pic_001.PNG) 
 * Customer Module:[Go](https://github.com/A01794620/A01794620_A6_2/tree/main/pics/sys_customer) 
 * Hotel Module: [Go](https://github.com/A01794620/A01794620_A6_2/tree/main/pics/sys_hotel) 
 * Reservations Module: [Go](https://github.com/A01794620/A01794620_A6_2/tree/main/pics/sys_reservation) 
 
 ## Coverage Images:
+* See the images for the Coverage Tool Results: [Go](https://github.com/A01794620/A01794620_A6_2/blob/main/pics/coverage/coverage_01.png)
 
 ## Unity Testing Images:
+* See the images for the Unity Tests using Coverage: [Go](https://github.com/A01794620/A01794620_A6_2/blob/main/pics/coverage/coverage_02.png)
 
 ## Pylint Images:
-
+* Check the Pylint Reports: [Go](https://github.com/A01794620/A01794620_A6_2/tree/main/pics/pylint)
+ 
 ## Flake8 Images:
-
-
-
+* Check the Pylint Reports: [Go](https://github.com/A01794620/A01794620_A6_2/blob/main/pics/flake8/flake_01.png)
+ 
 ## APA References:
 * Conventional Commits (2026). _Conventional Commits_. Recovered on February 12, 2026 form https://www.conventionalcommits.org/en/v1.0.0/
 * Buchea, J. (2026). _Semantic Commit Messages_. Recovered on February 12, 2026 from https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716
