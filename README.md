@@ -97,6 +97,10 @@ The following material helped on validation inside classes:
 * The amazing Coverage tool from Sphinx (2026) used to check the code coverage.
 
 ## System Images:
+* Main system panel [Go](https://github.com/A01794620/A01794620_A6_2/tree/main/pics/sys_main) 
+* Customer Module:[Go](https://github.com/A01794620/A01794620_A6_2/tree/main/pics/sys_customer) 
+* Hotel Module: [Go](https://github.com/A01794620/A01794620_A6_2/tree/main/pics/sys_hotel) 
+* Reservations Module: [Go](https://github.com/A01794620/A01794620_A6_2/tree/main/pics/sys_reservation) 
 
 ## Coverage Images:
 
